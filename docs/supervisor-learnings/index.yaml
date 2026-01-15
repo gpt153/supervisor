@@ -34,6 +34,14 @@ learnings:
     date: 2026-01-15
     file: learnings/004-working-directory-confusion.md
 
+  - id: "005"
+    title: "SCAR Sits Idle for Hours After Completing Work"
+    category: scar-integration
+    tags: [scar, monitoring, timing, efficiency, idle-time]
+    severity: high
+    date: 2026-01-15
+    file: learnings/005-scar-completion-check-frequency.md
+
 categories:
   - context-management
   - github-automation
@@ -65,6 +73,10 @@ tags:
   scar: "SCAR agent integration"
   implementation: "Implementation phase issues"
   verification: "Verification and testing"
+  monitoring: "Monitoring and progress tracking"
+  timing: "Timing and scheduling issues"
+  efficiency: "Efficiency and productivity improvements"
+  idle-time: "Preventing idle time and delays"
 
 severity_definitions:
   high: "Major issue that blocks work or wastes significant tokens/time"
@@ -73,5 +85,5 @@ severity_definitions:
 
 metadata:
   last_updated: 2026-01-15
-  total_learnings: 4
+  total_learnings: 5
   version: "1.0.0"
