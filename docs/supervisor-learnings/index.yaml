@@ -1,0 +1,77 @@
+# Supervisor Learning System Index
+# This file catalogs all documented learnings for quick discovery
+
+learnings:
+  - id: "001"
+    title: "Subagent Lost Context During Epic Implementation"
+    category: context-management
+    tags: [subagent, handoff, token-budget, context]
+    severity: high
+    date: 2026-01-15
+    file: learnings/001-subagent-context-handoff.md
+
+  - id: "002"
+    title: "GitHub API Rate Limit Exceeded During Bulk Operations"
+    category: github-automation
+    tags: [api, rate-limit, gh-cli, github]
+    severity: medium
+    date: 2026-01-15
+    file: learnings/002-github-api-rate-limits.md
+
+  - id: "003"
+    title: "Using Bash Commands Instead of Specialized Tools"
+    category: tool-usage
+    tags: [tools, bash, optimization, best-practice]
+    severity: medium
+    date: 2026-01-15
+    file: learnings/003-use-specialized-tools.md
+
+  - id: "004"
+    title: "Operating from Wrong Directory (Root vs Project)"
+    category: project-setup
+    tags: [directory, context, navigation, claude-md]
+    severity: high
+    date: 2026-01-15
+    file: learnings/004-working-directory-confusion.md
+
+categories:
+  - context-management
+  - github-automation
+  - bmad-workflow
+  - scar-integration
+  - template-issues
+  - git-operations
+  - tool-usage
+  - project-setup
+
+tags:
+  subagent: "Subagent spawning and management"
+  handoff: "Context handoff between agents"
+  token-budget: "Token optimization strategies"
+  api: "API interactions and issues"
+  rate-limit: "Rate limiting problems and solutions"
+  gh-cli: "GitHub CLI tool usage"
+  epic: "Epic creation and management"
+  user-story: "User story patterns"
+  planning: "Planning workflow issues"
+  git: "Git version control"
+  merge: "Merge operations"
+  conflict: "Conflict resolution"
+  template: "Template files and formats"
+  yaml: "YAML formatting and structure"
+  markdown: "Markdown formatting"
+  context: "Context management and preservation"
+  optimization: "Performance and efficiency improvements"
+  scar: "SCAR agent integration"
+  implementation: "Implementation phase issues"
+  verification: "Verification and testing"
+
+severity_definitions:
+  high: "Major issue that blocks work or wastes significant tokens/time"
+  medium: "Important issue that affects efficiency"
+  low: "Minor issue or optimization tip"
+
+metadata:
+  last_updated: 2026-01-15
+  total_learnings: 4
+  version: "1.0.0"
