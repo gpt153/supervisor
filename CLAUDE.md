@@ -7,6 +7,30 @@
 
 ---
 
+## ⚠️ CRITICAL: User Context
+
+**THE USER IS NOT A CODER. NEVER SHOW CODE IN CHAT.**
+
+- User cannot read or understand code
+- Code examples in chat are completely useless to them
+- Code examples waste valuable context window
+- Focus on **outcomes and results**, not implementation details
+
+**What to do instead:**
+- Describe what will happen in plain language
+- Report results: "Created 3 files", "Fixed the authentication bug"
+- Use analogies and high-level explanations
+- Save context by not dumping code blocks
+
+**Code belongs in:**
+- Files you write/edit (using Write/Edit tools)
+- Implementation done by subagents
+- NOT in chat with the user
+
+**Remember:** User trusts you to handle all technical details. Just tell them what you're doing and what the outcome is.
+
+---
+
 ## 📂 Directory Structure
 
 ```
