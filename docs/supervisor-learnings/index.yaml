@@ -42,6 +42,14 @@ learnings:
     date: 2026-01-15
     file: learnings/005-scar-completion-check-frequency.md
 
+  - id: "006"
+    title: "Never Trust SCAR's Summary - Always Verify"
+    category: scar-integration
+    tags: [scar, verification, build-validation, quality-control]
+    severity: critical
+    date: 2026-01-16
+    file: learnings/006-never-trust-scar-verify-always.md
+
 categories:
   - context-management
   - github-automation
@@ -77,13 +85,16 @@ tags:
   timing: "Timing and scheduling issues"
   efficiency: "Efficiency and productivity improvements"
   idle-time: "Preventing idle time and delays"
+  build-validation: "Build and compilation verification"
+  quality-control: "Quality assurance and validation"
 
 severity_definitions:
+  critical: "Catastrophic issue that blocks all work or causes major time waste"
   high: "Major issue that blocks work or wastes significant tokens/time"
   medium: "Important issue that affects efficiency"
   low: "Minor issue or optimization tip"
 
 metadata:
-  last_updated: 2026-01-15
-  total_learnings: 5
-  version: "1.0.0"
+  last_updated: 2026-01-16
+  total_learnings: 6
+  version: "1.0.1"
