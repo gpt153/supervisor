@@ -1,0 +1,107 @@
+project: project-name
+created: YYYY-MM-DD
+current_phase: analysis | planning | architecture | implementation
+complexity_level: 0 | 1 | 2 | 3 | 4
+planning_track: quick-flow | standard | enterprise
+
+phases:
+  analysis:
+    status: pending | in_progress | completed | skipped
+    started_at: YYYY-MM-DDTHH:MM:SS+01:00  # Stockholm time
+    completed_at: YYYY-MM-DDTHH:MM:SS+01:00
+    agent: analyst
+    outputs:
+      - project-brief.md
+      - feature-request.md
+    notes: |
+      Systematic requirements gathering phase.
+      Ask clarifying questions to understand problem deeply.
+
+  planning:
+    status: pending | in_progress | completed | skipped
+    started_at: null
+    completed_at: null
+    agent: pm
+    outputs_planned:
+      - prd/feature-name.md
+      - epics/001-epic-name.md
+      - epics/002-epic-name.md
+    notes: |
+      PRD creation and epic breakdown.
+      Use MoSCoW prioritization.
+
+  architecture:
+    status: pending | in_progress | completed | skipped
+    started_at: null
+    completed_at: null
+    agent: architect
+    outputs_planned:
+      - architecture/overview.md
+      - architecture/database-schema.md
+      - architecture/api-specification.md
+      - adr/001-decision-title.md
+    notes: |
+      System design and technical decisions.
+      Document WHY, not just WHAT.
+
+  implementation:
+    status: pending | in_progress | completed
+    started_at: null
+    completed_at: null
+    agent: scar
+    github_issues:
+      - number: null
+        title: null
+        status: open | in_progress | review | done
+        epic: null
+        assignee: scar
+    notes: |
+      SCAR handles actual code implementation.
+      Supervisor monitors and validates.
+
+# Current Work
+current_epic: null  # e.g., "001-user-authentication"
+active_issues: []   # e.g., [123, 124, 125]
+completed_issues: [] # e.g., [120, 121, 122]
+
+# Epic Status Tracking
+epics:
+  - id: "001"
+    title: null
+    status: draft | active | in_progress | blocked | completed | cancelled
+    priority: high | medium | low
+    complexity: 0 | 1 | 2 | 3 | 4
+    created: YYYY-MM-DD
+    started: null
+    completed: null
+    issues: []  # GitHub issue numbers
+    blocked_by: null  # Epic ID if blocked
+    blocks: []  # Epic IDs that depend on this
+
+# Progress Metrics
+metrics:
+  total_epics: 0
+  completed_epics: 0
+  total_issues: 0
+  completed_issues: 0
+  in_progress_issues: 0
+  blocked_issues: 0
+
+# Notes and Context
+notes: |
+  Project-level notes and context.
+  Current focus, blockers, decisions pending, etc.
+
+# Decision Log (Quick References)
+decisions:
+  - date: YYYY-MM-DD
+    title: "Decision title"
+    adr: "adr/XXX-decision-title.md"
+    impact: high | medium | low
+
+# Review Schedule
+reviews:
+  next_review: YYYY-MM-DD
+  frequency: weekly | bi-weekly | monthly
+  last_review: null
+  review_notes: null
