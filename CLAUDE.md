@@ -304,6 +304,13 @@ ls /home/samuel/supervisor/docs/supervisor-learnings/learnings/
 - GitHub automation (rate limits, bulk operations)
 - Tool usage (specialized tools vs bash)
 - Project setup (directory navigation, CLAUDE.md usage)
+- **SCAR integration (CRITICAL - learnings 006 & 007):**
+  - **Learning 006**: NEVER trust SCAR's summaries without verification
+  - **Learning 007**: Monitor SCAR's STATE (progress), not existence (files)
+
+**⚠️ CRITICAL LEARNINGS (Read these first):**
+- **006-never-trust-scar-verify-always.md** - SCAR claims 100% = actually 20%
+- **007-monitor-scar-state-not-just-existence.md** - Check output, not timestamps
 
 **See:** `/home/samuel/supervisor/docs/supervisor-learnings/README.md` for full documentation
 
