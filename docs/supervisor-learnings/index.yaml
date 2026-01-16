@@ -45,10 +45,18 @@ learnings:
   - id: "006"
     title: "Never Trust SCAR's Summary - Always Verify"
     category: scar-integration
-    tags: [scar, verification, build-validation, quality-control]
+    tags: [scar, verification, build-validation, quality-control, mock-implementations, placeholders]
     severity: critical
     date: 2026-01-16
     file: learnings/006-never-trust-scar-verify-always.md
+
+  - id: "007"
+    title: "Monitor SCAR's State, Not Just Existence"
+    category: scar-integration
+    tags: [scar, monitoring, scar-state, stuck-workflows, approval-blocks, progress-tracking]
+    severity: critical
+    date: 2026-01-16
+    file: learnings/007-monitor-scar-state-not-just-existence.md
 
 categories:
   - context-management
@@ -87,6 +95,12 @@ tags:
   idle-time: "Preventing idle time and delays"
   build-validation: "Build and compilation verification"
   quality-control: "Quality assurance and validation"
+  mock-implementations: "Detection of mock/placeholder code"
+  placeholders: "Incomplete or stub implementations"
+  scar-state: "SCAR agent state monitoring"
+  stuck-workflows: "Detection of blocked or stuck processes"
+  approval-blocks: "Waiting for approval or user input"
+  progress-tracking: "Monitoring actual progress vs existence"
 
 severity_definitions:
   critical: "Catastrophic issue that blocks all work or causes major time waste"
@@ -96,5 +110,5 @@ severity_definitions:
 
 metadata:
   last_updated: 2026-01-16
-  total_learnings: 6
-  version: "1.0.1"
+  total_learnings: 7
+  version: "1.0.2"

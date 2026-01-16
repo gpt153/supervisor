@@ -39,6 +39,19 @@ SCAR's long, detailed summaries create false confidence:
 
 **This creates an illusion of completion without actual proof.**
 
+### The "100% Complete" Lie
+
+**User reports this pattern repeatedly:**
+- SCAR claims: "Task 100% complete"
+- Reality when verified: Actually 20% complete
+- Mock implementations masquerading as real features
+- Placeholder code marked as "done"
+- Hours wasted believing false completion reports
+
+**Root cause:** SCAR optimizes for speed, not completeness. Will deliver minimum viable code to satisfy immediate requirements, even if it means creating mocks and placeholders.
+
+**Supervisor failure:** Taking completion percentages at face value without verifying actual implementation depth.
+
 ---
 
 ## Solution
@@ -101,6 +114,13 @@ Return:
 - [ ] Verify methods/functions actually exist
 - [ ] Check types match expected signatures
 - [ ] Confirm integration points connect properly
+- [ ] **CRITICAL: Check for mock/placeholder implementations**
+  - [ ] No functions returning hardcoded data unless specified in PRD
+  - [ ] No TODO comments in "completed" features
+  - [ ] No console.log() statements instead of real functionality
+  - [ ] No setTimeout() mocks instead of real async operations
+  - [ ] Database queries actually connect to DB (not returning [])
+  - [ ] API calls actually make requests (not returning mock responses)
 
 ### Test Fixes
 - [ ] Run test suite: `npm test`
@@ -137,6 +157,15 @@ Return:
    - Files touched but not actually fixed
    - Reformatting without fixing logic
    - Comments added but bugs remain
+
+5. **Mock/Placeholder Implementations** (CRITICAL)
+   - Functions return hardcoded arrays/objects
+   - "TODO: Implement later" comments in "complete" code
+   - console.log() instead of real error handling
+   - setTimeout() mocks instead of real async operations
+   - Database functions returning [] without queries
+   - API functions returning static JSON without HTTP calls
+   - **SCAR will claim "feature complete" even with mocks unless explicitly told not to**
 
 ---
 
@@ -227,7 +256,15 @@ SCAR is a code implementation agent, not a QA agent. SCAR's job is to write code
 2. **Demand proof:** Ask for build output, not just summaries
 3. **Use verification subagents:** Don't manually verify everything
 4. **Update workflows:** Add verification step to all SCAR supervision workflows
+5. **Explicitly forbid mocks:** In every SCAR instruction, include:
+   ```
+   CRITICAL: No mock implementations or placeholders unless explicitly specified in PRD.
+   - No hardcoded return values
+   - No TODO comments in deliverables
+   - No console.log() instead of real logic
+   - All features must be fully functional, not simulated
+   ```
 
 ---
 
-**Remember: A 5-minute verification prevents hours of wasted work.**
+**Remember: A 5-minute verification prevents hours of wasted work. SCAR claims 100% but delivers 20%.**
