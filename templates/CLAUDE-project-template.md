@@ -250,7 +250,10 @@ Reading 1-2 files?                    → OK to do directly
 3. Verify git commits in last 10 minutes: `cd worktree && git log --since="10 minutes ago"`
 4. Check for blocking patterns: "awaiting approval", "plan ready", "waiting for"
 5. If no commits in 10 min: Check if SCAR is stuck or blocked
-6. Report ACTUAL status: "SCAR is actively working" OR "SCAR blocked waiting for approval" OR "SCAR completed, needs verification"
+6. Report ACTUAL status WITH TIMESTAMP in format [HH:MM UTC]:
+   - "[18:45 UTC] SCAR is actively working. Last commit: 5 minutes ago."
+   - "[18:45 UTC] SCAR blocked waiting for approval"
+   - "[18:45 UTC] SCAR completed work, needs verification"
 
 ### "Verify issue #123" OR "Is the work good?"
 
@@ -454,7 +457,8 @@ You: [Generate 3 wireframes with Frame0]
    - Check actual code for mocks/placeholders
    - Run actual build command (npm run build), not shortcuts
    - Verify specific errors from issue are fixed
-   - Report: "Verifying SCAR's work..." then ACTUAL results (not SCAR's claims)
+   - Report WITH TIMESTAMP: "[HH:MM UTC] Verifying SCAR's work..." then ACTUAL results
+   - Example: "[18:47 UTC] Verification complete: APPROVED" or "[18:47 UTC] Verification complete: REJECTED - 3 issues found"
 
 3. **Every 2 minutes while SCAR is working:**
    - Check issue for new comments (especially "Implementation complete")
@@ -462,7 +466,8 @@ You: [Generate 3 wireframes with Frame0]
    - Verify git commits in last 10 minutes (not just file existence)
    - Look for: "awaiting approval", "waiting for", "plan ready" in output
    - If no commits in 10 min, check if SCAR is blocked or stuck
-   - Report progress to user proactively
+   - Report progress to user proactively WITH TIMESTAMP: "[HH:MM UTC] Status message"
+   - Example: "[18:45 UTC] SCAR is working on authentication. Last commit: 3 minutes ago."
    - CRITICAL: Don't let SCAR sit idle for hours after completing work or being blocked
 
 4. **When context reaches 60% (120K/200K tokens):**
@@ -588,10 +593,11 @@ Task is simple status check?
 7. **NO MOCK/PLACEHOLDER ACCEPTANCE** - Unless in PRD (mandatory)
 8. **VALIDATE BEFORE MERGE** - `/verify-scar-phase` is mandatory
 9. **BE PROACTIVE** - Check progress, report status, alert issues
-10. **EPIC FILES ARE SELF-CONTAINED** - All context in one place
-11. **USE MoSCoW** - Prevent scope creep
-12. **DOCUMENT DECISIONS** - ADRs capture WHY, not just WHAT
-13. **HAND OFF AT 80%** - Automatic, proactive, zero loss
+10. **ALWAYS INCLUDE TIMESTAMPS IN STATUS UPDATES** - User needs to know when info is from (format: [HH:MM UTC])
+11. **EPIC FILES ARE SELF-CONTAINED** - All context in one place
+12. **USE MoSCoW** - Prevent scope creep
+13. **DOCUMENT DECISIONS** - ADRs capture WHY, not just WHAT
+14. **HAND OFF AT 80%** - Automatic, proactive, zero loss
 
 ---
 
@@ -766,6 +772,7 @@ Shared Resources:
 4. ✅ Check for mocks/placeholders (grep TODO, FIXME, console.log)
 5. ✅ Verify git commits in last 10 minutes
 6. ✅ Check specific errors from issue are fixed
+7. ✅ Report WITH TIMESTAMP: "[HH:MM UTC] Verification complete: APPROVED/REJECTED"
 
 **When monitoring SCAR:**
 1. ⚠️ DO NOT just check if process exists
@@ -773,6 +780,7 @@ Shared Resources:
 3. ✅ Look for: "awaiting approval", "plan ready", "waiting for"
 4. ✅ Verify commits in last 10 minutes
 5. ✅ If no activity, check if SCAR is blocked
+6. ✅ Report WITH TIMESTAMP: "[HH:MM UTC] Status message"
 
 **Red flags:**
 - Overly detailed summaries with ✅ checkmarks
