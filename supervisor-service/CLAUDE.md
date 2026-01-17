@@ -128,19 +128,46 @@ EXECUTE THIS:
 
 ### When User Says: "Continue building" OR "Build the next feature" OR "Keep going"
 
-EXECUTE THIS:
-  1. Check epics directory for next unstarted epic
-  2. IF found next epic:
+EXECUTE THIS (in order - stop when you find work to resume):
+
+  1. **Check for handoff document:**
+     → Read: `.bmad/context-handoff.md` or `context-handoff.md`
+     → IF exists: Follow handoff instructions exactly
+     → SPAWN supervise-issue.md {issue-from-handoff} if needed
+     → RETURN TO IDLE
+
+  2. **Check for in-progress GitHub issues:**
+     → Run: `gh issue list --state open --json number,title,labels`
+     → Look for issues with SCAR activity (comments in last 24h)
+     → IF found:
+       - Read last few comments to understand current state
+       - IF SCAR is blocked (awaiting approval, waiting):
+         → SPAWN supervise-issue.md {issue-number}
+       - IF SCAR is working: Report "SCAR is active on issue #X"
+     → RETURN TO IDLE
+
+  3. **Check for partially complete epics:**
+     → Read epics directory
+     → Check which epics have GitHub issues created
+     → IF epic has issue but issue not closed:
+       → That's the current work
+       → Resume monitoring that issue
+       → SPAWN supervise-issue.md {issue-number}
+     → RETURN TO IDLE
+
+  4. **Start next unstarted epic:**
+     → Find first epic without GitHub issue
      → Create GitHub issue for that epic
      → SPAWN supervise-issue.md {issue-number}
      → RETURN TO IDLE
-  3. IF all epics done:
+
+  5. **All epics complete:**
      → Report: "All epics complete! Ready for new features."
-  4. ✅ DONE
 
 DO NOT:
   ❌ Monitor SCAR yourself
-  ❌ Ask "which epic?" (just pick the next one)
+  ❌ Skip handoff check (ALWAYS check first)
+  ❌ Start new epic if work is in-progress
 
 ### When User Says: "Implement epic-XXX" OR "Build epic XXX"
 

@@ -1,0 +1,13 @@
+{
+  "issue": 7,
+  "title": "Setup Node.js orchestration service structure",
+  "status": "waiting_for_scar",
+  "scar_started": false,
+  "started_at": "2026-01-17T15:26:27Z",
+  "last_activity": "2026-01-17T15:26:27Z",
+  "last_comment": null,
+  "progress_estimate": "0%",
+  "retries": 0,
+  "errors": [],
+  "phase": "initial_verification"
+}
