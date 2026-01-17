@@ -56,8 +56,13 @@ Instead of ad-hoc changes, we now systematically track supervisor improvements:
 - **Epic planning:** Documented improvements in `.bmad/epics/`
 - **Metrics:** Measuring supervisor effectiveness over time
 
-### Active Epics
-1. **Epic 001:** BMAD Integration (in progress)
+### What Changed?
+- **Before:** 6 separate repos (consilio-planning, openhorizon-planning, etc.)
+- **After:** Single `gpt153/supervisor` repo containing all project planning folders
+- **Benefits:** Simpler maintenance, easier cross-project learning, natural fit with centralized docs
+
+### Active Meta-Epics
+1. **Epic 001:** BMAD Integration (in progress) - [Issues](https://github.com/gpt153/supervisor/issues)
 2. **Epic 002:** Learning System Enhancement (draft)
 3. **Epic 003:** SCAR Integration Improvements (draft)
 4. **Epic 004:** Automated Supervisor Updates (draft)
@@ -68,6 +73,7 @@ cat /home/samuel/supervisor/.bmad/workflow-status.yaml
 ```
 
 **Learn more:** See `.bmad/epics/` for detailed improvement plans
+**Old planning repos:** Archived (not deleted) for historical reference
 
 ---
 
@@ -157,23 +163,37 @@ cat /home/samuel/supervisor/.bmad/workflow-status.yaml
 │
 ├── consilio/                     # ⭐ Project 1 planning workspace
 │   ├── CLAUDE.md                 # Supervisor role (autonomous)
-│   ├── .bmad/                    # Planning artifacts
-│   │   ├── project-brief.md
-│   │   ├── workflow-status.yaml
-│   │   ├── epics/
-│   │   ├── adr/
-│   │   └── prd/
-│   └── .git/                     # Planning repo (separate from implementation)
+│   └── .bmad/                    # Planning artifacts
+│       ├── project-brief.md
+│       ├── workflow-status.yaml
+│       ├── epics/
+│       ├── adr/
+│       └── prd/
 │
 ├── openhorizon/                  # ⭐ Project 2 planning workspace
+│   └── [same structure as consilio]
+│
+├── health-agent/                 # ⭐ Project 3 planning workspace
+│   └── [same structure as consilio]
+│
+├── odin/                         # ⭐ Project 4 planning workspace
+│   └── [same structure as consilio]
+│
+├── quiculum-monitor/             # ⭐ Project 5 planning workspace
 │   └── [same structure as consilio]
 │
 ├── CLAUDE-PROJECT.md             # Template for new projects
 └── init-project.sh               # Script to create new projects
 
-Implementation workspaces (separate):
-/home/samuel/.archon/workspaces/consilio/      # SCAR works here
-/home/samuel/.archon/workspaces/openhorizon.cc/ # SCAR works here
+**Single Git Repository:**
+- All project planning in one repo: https://github.com/gpt153/supervisor
+- Each project folder tracked in single repo (no nested .git)
+- Simpler maintenance, easier cross-project learning
+
+**Implementation workspaces (separate repos):**
+/home/samuel/.archon/workspaces/consilio/      # SCAR works here → gpt153/consilio
+/home/samuel/.archon/workspaces/openhorizon.cc/ # SCAR works here → gpt153/openhorizon.cc
+/home/samuel/.archon/workspaces/health-agent/   # SCAR works here → gpt153/health-agent
 ```
 
 ---
@@ -422,52 +442,70 @@ YAML file tracks:
 Each project gets its own subdirectory:
 
 ```
-supervisor/
+supervisor/ (single git repo: gpt153/supervisor)
 ├── consilio/       # Project 1 planning
 │   └── .bmad/
-├── scar/           # Project 2 planning
+├── openhorizon/    # Project 2 planning
 │   └── .bmad/
-└── health-agent/   # Project 3 planning
+├── health-agent/   # Project 3 planning
+│   └── .bmad/
+├── odin/           # Project 4 planning
+│   └── .bmad/
+└── quiculum-monitor/  # Project 5 planning
     └── .bmad/
 ```
 
-**Physical separation prevents:**
+**Physical directory separation prevents:**
 - Context mixing
 - Pattern bleed
 - Decision confusion
 
-**Each project is a Git repo:**
-- Version control for decisions
-- Backup of planning work
-- History of requirements
+**Single Git repo benefits:**
+- All planning in one place
+- Version control for all decisions
+- Simpler backup (one repo)
+- Shared history and cross-project learnings
+- Natural fit with centralized docs system
+
+**Implementation repos remain separate:**
+- Each project has its own implementation repo
+- Issues tracked in implementation repos
+- Clear separation: planning vs code
 
 ## Setup New Project
 
 ```bash
-# Initialize project directory
+# Create project directory in supervisor repo
 cd /home/samuel/supervisor
 mkdir -p my-project/.bmad/{epics,adr,prd,architecture,discussions}
 
-# Initialize Git repo
-cd my-project
-git init
-git remote add origin https://github.com/gpt153/my-project-planning.git
-
-# Create symlink to supervisor instructions
-ln -s ../CLAUDE.md CLAUDE.md
+# Copy or symlink supervisor instructions
+cp CLAUDE-PROJECT.md my-project/CLAUDE.md
+# Or symlink: ln -s ../CLAUDE-PROJECT.md my-project/CLAUDE.md
 
 # Copy templates
-cp ../templates/project-brief.md .bmad/
-cp ../templates/workflow-status.yaml .bmad/
+cp templates/project-brief.md my-project/.bmad/
+cp templates/workflow-status.yaml my-project/.bmad/
 
 # Edit project brief
-vim .bmad/project-brief.md
+vim my-project/.bmad/project-brief.md
 
-# Commit initial structure
-git add .
-git commit -m "feat: Initialize planning structure"
-git push -u origin main
+# Create implementation repo on GitHub
+gh repo create gpt153/my-project --public --description "Implementation for my-project"
+
+# Commit to supervisor repo (single planning repo)
+git add my-project/
+git commit -m "feat: Add my-project planning workspace"
+git push origin main
+
+# Create implementation workspace (for SCAR)
+mkdir -p /home/samuel/.archon/workspaces/my-project
+cd /home/samuel/.archon/workspaces/my-project
+git init
+git remote add origin https://github.com/gpt153/my-project.git
 ```
+
+**Note:** All project planning lives in the single `gpt153/supervisor` repo. Implementation code lives in separate project-specific repos.
 
 ## Integration with SCAR Platform
 

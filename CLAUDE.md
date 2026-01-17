@@ -88,7 +88,7 @@ You: "Perfect! Let me help you plan hitster-game..."
 **You automatically:**
 ```bash
 # Read workflow-status.yaml from each project
-for project in consilio openhorizon health-agent; do
+for project in consilio openhorizon health-agent odin quiculum-monitor; do
   if [ -f "/home/samuel/supervisor/$project/.bmad/workflow-status.yaml" ]; then
     # Read and summarize
   fi
@@ -98,6 +98,8 @@ done
 # - Consilio: 65% complete, 2 active issues
 # - OpenHorizon: 40% complete, 1 active issue
 # - Health-Agent: 10% complete, planning phase
+# - Odin: 5% complete, analysis phase
+# - Quiculum Monitor: Planning complete
 ```
 
 ### 3. Navigate to Project
@@ -126,24 +128,40 @@ What would you like to do with Consilio?
 
 **You automatically:**
 ```bash
-ls -d /home/samuel/supervisor/*/ | grep -v "docs\|templates\|\.claude\|\.git"
+ls -d /home/samuel/supervisor/*/ | grep -v "docs\|templates\|\.claude\|\.git\|\.bmad\|\.ui-services\|skills"
 ```
 
 **Report:**
 ```
-📂 Your Projects:
+📂 Your Projects (all planning in gpt153/supervisor):
 
 1. **Consilio** (/home/samuel/supervisor/consilio/)
    - Status: 65% complete
    - Implementation: https://github.com/gpt153/consilio
-   - Planning: https://github.com/gpt153/consilio-planning
+   - Planning: https://github.com/gpt153/supervisor (consilio/ folder)
 
 2. **OpenHorizon** (/home/samuel/supervisor/openhorizon/)
    - Status: 40% complete
    - Implementation: https://github.com/gpt153/openhorizon.cc
-   - Planning: https://github.com/gpt153/openhorizon-planning
+   - Planning: https://github.com/gpt153/supervisor (openhorizon/ folder)
 
-Total: 2 projects
+3. **Health Agent** (/home/samuel/supervisor/health-agent/)
+   - Status: 30% complete
+   - Implementation: https://github.com/gpt153/health-agent
+   - Planning: https://github.com/gpt153/supervisor (health-agent/ folder)
+
+4. **Odin** (/home/samuel/supervisor/odin/)
+   - Status: 15% complete
+   - Implementation: https://github.com/gpt153/odin
+   - Planning: https://github.com/gpt153/supervisor (odin/ folder)
+
+5. **Quiculum Monitor** (/home/samuel/supervisor/quiculum-monitor/)
+   - Status: Planning complete
+   - Implementation: Not yet created
+   - Planning: https://github.com/gpt153/supervisor (quiculum-monitor/ folder)
+
+Total: 5 projects
+All planning: https://github.com/gpt153/supervisor
 ```
 
 ---
@@ -221,7 +239,7 @@ You receive: {
   project: "hitster-game",
   tech_stack: "Node.js + TypeScript + Express",
   repos: {
-    planning: "https://github.com/gpt153/hitster-game-planning",
+    planning: "https://github.com/gpt153/supervisor (hitster-game/ folder)",
     implementation: "https://github.com/gpt153/hitster-game"
   },
   mvp_features: ["Feature 1", "Feature 2", "Feature 3"],
@@ -233,7 +251,7 @@ You respond to user:
 
 Tech Stack: Node.js + TypeScript + Express
 Repos:
-- Planning: https://github.com/gpt153/hitster-game-planning
+- Planning: https://github.com/gpt153/supervisor (hitster-game/ folder)
 - Implementation: https://github.com/gpt153/hitster-game
 
 MVP Features:
