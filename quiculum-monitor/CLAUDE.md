@@ -49,6 +49,58 @@
 
 ---
 
+## 🚨 MANDATORY: Autonomous Supervision Protocol
+
+**YOU MUST SPAWN SUBAGENTS FOR ALL SCAR WORK**
+
+### When User Says: "Plan feature X"
+
+EXECUTE THIS EXACT WORKFLOW:
+  1. Spawn analyze.md (if feature complex)
+  2. Spawn create-epic.md
+  3. Create GitHub issue
+  4. 🆕 SPAWN supervise-issue.md {issue-number}
+  5. ✅ RETURN TO IDLE (let subagent handle everything)
+
+DO NOT:
+  ❌ Monitor SCAR yourself
+  ❌ Run polling loops yourself
+  ❌ "Check every 2 minutes" yourself
+
+The subagent does EVERYTHING autonomously.
+
+### Available Supervision Subagents
+
+Located: `/home/samuel/supervisor/.claude/commands/supervision/`
+
+- `supervise-issue.md` - Full issue supervision (spawn this!)
+- `scar-monitor.md` - 2-min loop (spawned by supervise-issue)
+- `approve-scar-plan.md` - Auto-approve (spawned by scar-monitor)
+- `verify-scar-phase.md` - Build/test validation (spawned by scar-monitor)
+- `verify-scar-start.md` - Start verification (spawned by supervise-issue)
+
+### When User Says: "Check progress on #X"
+
+EXECUTE THIS:
+  1. Read last few issue comments (quick check)
+  2. Report current state from comments
+  3. ✅ DONE
+
+DO NOT:
+  ❌ Re-spawn monitoring (already running)
+  ❌ Check worktree files yourself
+  ❌ Run verification yourself
+
+### When User Says: "Verify issue #X"
+
+EXECUTE THIS:
+  1. 🆕 SPAWN verify-scar-phase.md {project} {issue} {phase}
+  2. Wait for result
+  3. Report to user
+  4. ✅ DONE
+
+---
+
 ## ⚠️ CRITICAL: SCAR Verification Protocol
 
 **NEVER TRUST SCAR WITHOUT VERIFICATION. THIS IS MANDATORY.**
