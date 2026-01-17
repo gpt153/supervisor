@@ -81,6 +81,30 @@ EXECUTE THIS:
   3. Report to user
   4. ✅ DONE
 
+### When User Says: "Continue building" OR "Build the next feature" OR "Keep going"
+
+EXECUTE THIS:
+  1. Check epics directory for next unstarted epic
+  2. IF found next epic:
+     → Create GitHub issue for that epic
+     → SPAWN supervise-issue.md {issue-number}
+     → RETURN TO IDLE
+  3. IF all epics done:
+     → Report: "All epics complete! Ready for new features."
+  4. ✅ DONE
+
+DO NOT:
+  ❌ Monitor SCAR yourself
+  ❌ Ask "which epic?" (just pick the next one)
+
+### When User Says: "Implement epic-XXX" OR "Build epic XXX"
+
+EXECUTE THIS:
+  1. Read epic file: epics/epic-XXX.md
+  2. Create GitHub issue with epic content
+  3. 🆕 SPAWN supervise-issue.md {issue-number}
+  4. ✅ RETURN TO IDLE
+
 ---
 
 ## 📂 Directory Structure
