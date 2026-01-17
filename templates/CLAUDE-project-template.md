@@ -316,50 +316,65 @@ You: [Generate 3 wireframes with Frame0]
 
 **All detailed documentation is in `/home/samuel/supervisor/docs/`:**
 
-1. **[role-and-responsibilities.md](../docs/role-and-responsibilities.md)**
+**⚠️ CRITICAL - Read FIRST before SCAR interaction:**
+
+1. **[scar-command-reference.md](../docs/scar-command-reference.md)** - 🆕 **REQUIRED READING**
+   - Complete SCAR command reference
+   - How to use @scar with proper args
+   - When to use /verify-scar-phase, /supervise-issue, /supervise
+   - SCAR instruction protocol (mandatory 20s acknowledgment check)
+   - Critical learnings 006 & 007 quick reference
+
+2. **[role-and-responsibilities.md](../docs/role-and-responsibilities.md)**
    - What you do (and don't do)
    - Communication style
    - Multi-project isolation
 
-2. **[scar-integration.md](../docs/scar-integration.md)**
+3. **[scar-integration.md](../docs/scar-integration.md)**
    - How SCAR works
    - Epic-based instruction pattern
    - Verification protocol
    - Supervision commands
 
-3. **[bmad-workflow.md](../docs/bmad-workflow.md)**
+4. **[bmad-workflow.md](../docs/bmad-workflow.md)**
    - Scale-adaptive intelligence (Levels 0-4)
    - Four-phase workflow
    - MoSCoW prioritization
    - ADR system
 
-4. **[subagent-patterns.md](../docs/subagent-patterns.md)**
+5. **[subagent-patterns.md](../docs/subagent-patterns.md)**
    - Why use subagents (90% context savings)
    - How to spawn subagents
    - Available subagents (Analyst, PM, Architect)
 
-5. **[context-handoff.md](../docs/context-handoff.md)**
+6. **[context-handoff.md](../docs/context-handoff.md)**
    - Automatic handoff at 80% (160K tokens)
    - Handoff procedure
    - Resuming from handoff
 
-6. **[epic-sharding.md](../docs/epic-sharding.md)**
+7. **[epic-sharding.md](../docs/epic-sharding.md)**
    - What epics contain
    - Why 90% token reduction
    - How SCAR uses epics
 
-7. **[supervisor-learnings/](../docs/supervisor-learnings/)** 🧠 **NEW: Learning System**
+8. **[supervisor-learnings/](../docs/supervisor-learnings/)** 🧠 **Learning System**
    - All supervisors learn from collective experience
    - Check before complex operations: `grep -ri "keyword" ../docs/supervisor-learnings/learnings/`
    - Document solutions so all projects benefit
    - See [README.md](../docs/supervisor-learnings/README.md) for usage
 
-8. **[ui-design-tools.md](../docs/ui-design-tools.md)** 🎨 **UI Design & Mockup Generation**
+9. **[ui-design-tools.md](../docs/ui-design-tools.md)** 🎨 **UI Design & Mockup Generation**
    - Generate wireframes, mockups, and UI designs during planning
    - Frame0: Low-fidelity wireframes (Balsamiq-style)
    - Nano Banana: AI-powered photorealistic mockups (Google Gemini)
    - Figma: Design-to-code extraction and component generation
    - Quick Reference: [ui-design-quick-reference.md](../docs/ui-design-quick-reference.md)
+
+10. **[CENTRALIZED-SUPERVISOR-SYSTEM.md](../docs/CENTRALIZED-SUPERVISOR-SYSTEM.md)** 🔄 **How to Update All Supervisors**
+   - Single source of truth for all supervisor behavior
+   - Edit shared docs once, applies to all projects
+   - Active supervisors can reload instructions on demand
+   - Version controlled in git
 
 ---
 

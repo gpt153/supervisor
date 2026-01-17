@@ -263,17 +263,30 @@ Now in planning workspace. Let me create initial epics..."
 
 ---
 
-## 📚 Shared Documentation
+## 📚 Shared Documentation (CENTRALIZED SYSTEM)
 
-**All projects reference these shared docs:**
-- `docs/role-and-responsibilities.md` - What supervisor does
-- `docs/scar-integration.md` - SCAR knowledge
-- `docs/bmad-workflow.md` - BMAD methodology
-- `docs/subagent-patterns.md` - Context conservation
-- `docs/context-handoff.md` - Automatic handoff
-- `docs/epic-sharding.md` - Token reduction
+**⚠️ CRITICAL: All project supervisors read from ONE centralized location:**
+
+**Location:** `/home/samuel/supervisor/docs/`
+
+**Core Documentation:**
+- `role-and-responsibilities.md` - What supervisor does
+- `scar-command-reference.md` - 🆕 **SCAR commands and usage (REQUIRED READING)**
+- `scar-integration.md` - SCAR integration and verification
+- `bmad-workflow.md` - BMAD methodology
+- `subagent-patterns.md` - Context conservation
+- `context-handoff.md` - Automatic handoff
+- `epic-sharding.md` - Token reduction
+- `CENTRALIZED-SUPERVISOR-SYSTEM.md` - 🆕 **How to update all supervisors**
 
 **Edit once → applies to all projects**
+
+**To update ALL supervisors:**
+1. Edit shared doc in `/home/samuel/supervisor/docs/`
+2. Commit and push
+3. Tell active supervisors: "Reload your instructions"
+
+**See:** `/home/samuel/supervisor/docs/CENTRALIZED-SUPERVISOR-SYSTEM.md` for full details
 
 ---
 
@@ -311,6 +324,9 @@ ls /home/samuel/supervisor/docs/supervisor-learnings/learnings/
 **⚠️ CRITICAL LEARNINGS (Read these first):**
 - **006-never-trust-scar-verify-always.md** - SCAR claims 100% = actually 20%
 - **007-monitor-scar-state-not-just-existence.md** - Check output, not timestamps
+
+**⚠️ CRITICAL REFERENCE (Required for SCAR interaction):**
+- **scar-command-reference.md** - Complete guide to SCAR commands, args, and proper usage
 
 **See:** `/home/samuel/supervisor/docs/supervisor-learnings/README.md` for full documentation
 
