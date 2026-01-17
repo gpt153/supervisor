@@ -15,6 +15,15 @@ Monitor SCAR's work on a specific GitHub issue from instruction through completi
 
 **Scope**: One issue only (for multi-issue, use `/supervise`)
 
+## 🎯 Model Selection Note
+
+**This subagent uses SONNET** (complex orchestration and decision-making)
+
+**When this subagent spawns other subagents:**
+- ✅ Use `model="haiku"` for verify-scar-start.md (simple binary check)
+- ✅ Use default (Sonnet) for verify-scar-phase.md (comprehensive validation)
+- ✅ See `/home/samuel/supervisor/docs/model-selection-strategy.md` for full guidance
+
 ## Prerequisites
 
 **Required**:
@@ -261,11 +270,145 @@ Invoke: `/verify-scar-phase consilio 42 1`
 **Testing**: All tests passing ✅
 **Build**: Passing ✅
 
-**Ready for**: Review and merge
+**Ready for**: Auto-merge
 
 ---
 
-**Supervision complete** - Issue #{number} successfully implemented and verified.
+Proceeding to Phase 6: Auto-merge PR
+```
+
+## Phase 6: Auto-Merge PR
+
+**CRITICAL: Never ask for permission to merge. If verification passed, merge automatically.**
+
+### 6.1 Extract PR Number
+
+```bash
+PR_URL="{pr-url from SCAR's comment}"
+PR_NUMBER=$(echo "$PR_URL" | grep -oP 'pull/\K\d+')
+```
+
+### 6.2 Check CI Status
+
+```bash
+# Get PR status checks
+gh pr view $PR_NUMBER --json statusCheckRollup --jq '.statusCheckRollup'
+
+# Wait for CI to complete (max 10 minutes)
+WAIT_COUNT=0
+while [ $WAIT_COUNT -lt 60 ]; do
+  CI_STATUS=$(gh pr checks $PR_NUMBER --json state --jq '.[].state' | grep -v "SUCCESS" | wc -l)
+
+  if [ $CI_STATUS -eq 0 ]; then
+    echo "✅ All CI checks passed"
+    break
+  fi
+
+  echo "⏳ Waiting for CI... ($WAIT_COUNT/60)"
+  sleep 10
+  ((WAIT_COUNT++))
+done
+
+if [ $WAIT_COUNT -ge 60 ]; then
+  echo "⚠️ CI timeout - reporting to supervisor"
+  exit 1
+fi
+```
+
+### 6.3 Run Playwright E2E Tests (If Applicable)
+
+```bash
+# Check if project has Playwright configured
+if [ -f "playwright.config.ts" ] || [ -f "playwright.config.js" ]; then
+  echo "🎭 Running Playwright E2E tests..."
+
+  cd worktree
+  npx playwright test --reporter=line 2>&1 | tee /tmp/playwright-$1.log
+
+  if [ $? -eq 0 ]; then
+    echo "✅ Playwright tests: PASSED"
+  else
+    echo "❌ Playwright tests: FAILED"
+    echo "Posting failures to issue..."
+
+    gh issue comment $1 --body "## ❌ Playwright E2E Tests Failed
+
+\`\`\`
+$(tail -50 /tmp/playwright-$1.log)
+\`\`\`
+
+@scar Please fix the failing E2E tests."
+
+    exit 1
+  fi
+fi
+```
+
+### 6.4 Merge PR Automatically
+
+```bash
+# Merge the PR
+gh pr merge $PR_NUMBER --squash --auto --delete-branch
+
+echo "✅ PR #$PR_NUMBER merged and branch deleted"
+
+# Post completion to issue
+gh issue comment $1 --body "## ✅ Implementation Complete & Merged
+
+**PR**: #$PR_NUMBER merged to main ✅
+**Build**: Passing ✅
+**Tests**: All passing ✅
+$([ -f "playwright.config.ts" ] && echo "**Playwright E2E**: Passing ✅" || echo "")
+**Branch**: Deleted ✅
+
+Implementation complete. Monitoring deployment..."
+```
+
+### 6.5 Close Issue
+
+```bash
+# Close the issue as completed
+gh issue close $1 --reason completed
+
+echo "✅ Issue #$1 closed as completed"
+```
+
+## Phase 7: Monitor Deployment (Optional)
+
+**If CI/CD deploys automatically:**
+
+```bash
+# Wait for deployment (if using GitHub Actions)
+if gh workflow list | grep -q "deploy"; then
+  echo "⏳ Waiting for deployment..."
+
+  # Monitor workflow run
+  WAIT_COUNT=0
+  while [ $WAIT_COUNT -lt 60 ]; do
+    DEPLOY_STATUS=$(gh run list --workflow=deploy --limit 1 --json status --jq '.[0].status')
+
+    if [ "$DEPLOY_STATUS" = "completed" ]; then
+      DEPLOY_RESULT=$(gh run list --workflow=deploy --limit 1 --json conclusion --jq '.[0].conclusion')
+
+      if [ "$DEPLOY_RESULT" = "success" ]; then
+        echo "✅ Deployment: SUCCESS"
+        break
+      else
+        echo "❌ Deployment: FAILED"
+        # Report to supervisor for manual intervention
+        exit 1
+      fi
+    fi
+
+    sleep 10
+    ((WAIT_COUNT++))
+  done
+fi
+```
+
+---
+
+**Supervision complete** - Issue #{number} implemented, verified, merged, and deployed.
 ```
 
 **REJECTED ❌**:

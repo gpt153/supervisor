@@ -133,6 +133,53 @@ Located: `/home/samuel/supervisor/.claude/commands/supervision/`
 - `verify-scar-phase.md` - Build/test validation (spawned by scar-monitor)
 - `verify-scar-start.md` - Start verification (spawned by supervise-issue)
 
+### 🎯 Model Selection for Subagents
+
+**CRITICAL: Use different Claude models strategically to optimize cost and preserve Sonnet for complex tasks.**
+
+When spawning subagents with Task tool, use the `model` parameter:
+
+**Use Haiku (Fast & Cheap) for:**
+- ✅ `verify-scar-start.md` - Simple binary check (SCAR acknowledged or not)
+- ✅ Simple monitoring loops - Polling for status changes
+- ✅ Simple status checks - Reading comments, checking file existence
+- ✅ Context handoff routing - Reading handoff doc and spawning next agent
+
+**Use Sonnet (Current Model) for:**
+- ✅ `supervise-issue.md` - Complex decision-making and orchestration
+- ✅ `approve-scar-plan.md` - Plan evaluation and validation
+- ✅ `verify-scar-phase.md` - Comprehensive build/test verification
+- ✅ `analyze.md` - Deep codebase analysis
+- ✅ `create-epic.md` - Strategic planning and epic creation
+- ✅ `create-adr.md` - Architectural decisions
+
+**Example Task tool usage:**
+
+```python
+# Use Haiku for simple verification
+Task(
+  subagent_type="Bash",
+  model="haiku",  # ← ADD THIS for simple tasks
+  prompt="Verify SCAR started on issue #42 using verify-scar-start.md instructions",
+  description="Verify SCAR started"
+)
+
+# Use Sonnet (default) for complex supervision
+Task(
+  subagent_type="general-purpose",
+  # model defaults to Sonnet - complex thinking needed
+  prompt="Supervise issue #42 using supervise-issue.md instructions",
+  description="Supervise issue #42"
+)
+```
+
+**Cost Savings:**
+- Haiku: ~60-70% cheaper than Sonnet
+- Monitoring runs every 2min → massive savings
+- Preserve Sonnet for complex planning/architecture
+
+**See:** `/home/samuel/supervisor/docs/model-selection-strategy.md` for full details
+
 ### When User Says: "Check progress on #X"
 
 EXECUTE THIS:

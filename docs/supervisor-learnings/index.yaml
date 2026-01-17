@@ -58,6 +58,14 @@ learnings:
     date: 2026-01-16
     file: learnings/007-monitor-scar-state-not-just-existence.md
 
+  - id: "008"
+    title: "Use Haiku for Simple Tasks to Optimize Costs"
+    category: cost-optimization
+    tags: [cost-optimization, model-selection, haiku, sonnet, optimization, tool-usage, monitoring]
+    severity: medium
+    date: 2026-01-17
+    file: learnings/008-use-haiku-for-simple-tasks.md
+
 categories:
   - context-management
   - github-automation
@@ -67,6 +75,7 @@ categories:
   - git-operations
   - tool-usage
   - project-setup
+  - cost-optimization
 
 tags:
   subagent: "Subagent spawning and management"
@@ -101,6 +110,10 @@ tags:
   stuck-workflows: "Detection of blocked or stuck processes"
   approval-blocks: "Waiting for approval or user input"
   progress-tracking: "Monitoring actual progress vs existence"
+  cost-optimization: "Strategies for reducing costs and improving efficiency"
+  model-selection: "Choosing appropriate Claude model for tasks"
+  haiku: "Claude Haiku model usage"
+  sonnet: "Claude Sonnet model usage"
 
 severity_definitions:
   critical: "Catastrophic issue that blocks all work or causes major time waste"
@@ -109,6 +122,6 @@ severity_definitions:
   low: "Minor issue or optimization tip"
 
 metadata:
-  last_updated: 2026-01-16
-  total_learnings: 7
-  version: "1.0.2"
+  last_updated: 2026-01-17
+  total_learnings: 8
+  version: "1.0.3"
