@@ -45,6 +45,32 @@ cd my-project
 
 ---
 
+## 🔄 Supervisor Meta-Project (BMAD Self-Tracking)
+
+**The supervisor system now tracks its own improvements using BMAD!**
+
+### Why?
+Instead of ad-hoc changes, we now systematically track supervisor improvements:
+- **Workflow tracking:** `.bmad/workflow-status.yaml` tracks meta-project progress
+- **GitHub issues:** [supervisor-planning](https://github.com/gpt153/supervisor-planning) repository
+- **Epic planning:** Documented improvements in `.bmad/epics/`
+- **Metrics:** Measuring supervisor effectiveness over time
+
+### Active Epics
+1. **Epic 001:** BMAD Integration (in progress)
+2. **Epic 002:** Learning System Enhancement (draft)
+3. **Epic 003:** SCAR Integration Improvements (draft)
+4. **Epic 004:** Automated Supervisor Updates (draft)
+
+### Check Status
+```bash
+cat /home/samuel/supervisor/.bmad/workflow-status.yaml
+```
+
+**Learn more:** See `.bmad/epics/` for detailed improvement plans
+
+---
+
 ## 🤖 What is Supervisor?
 
 **An autonomous AI assistant that handles strategic planning, SCAR orchestration, and validation.**

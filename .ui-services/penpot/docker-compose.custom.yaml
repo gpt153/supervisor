@@ -1,0 +1,139 @@
+## Penpot - Custom Configuration for Supervisor UI Workflow
+## Exposed via Cloudflare Tunnel at: https://penpot.153.se
+
+x-flags: &penpot-flags
+  # Enable password login and registration for easy access
+  # Disable email verification for internal use
+  PENPOT_FLAGS: enable-login-with-password enable-registration disable-email-verification disable-secure-session-cookies enable-prepl-server
+
+x-uri: &penpot-public-uri
+  # This will be accessed via Cloudflare tunnel at https://penpot.153.se
+  PENPOT_PUBLIC_URI: https://penpot.153.se
+
+x-body-size: &penpot-http-body-size
+  PENPOT_HTTP_SERVER_MAX_BODY_SIZE: 31457280
+  PENPOT_HTTP_SERVER_MAX_MULTIPART_BODY_SIZE: 367001600
+
+x-secret-key: &penpot-secret-key
+  # Securely generated 512-bit key
+  PENPOT_SECRET_KEY: S91REAQeOvKcslSLaVEqzArqxEEDSyFD4vZpThqG2fD8FfxJk79cTZ9av4vW2eqYKwFYrLsMcGBsFuCA66RFQA
+
+networks:
+  penpot:
+
+volumes:
+  penpot_postgres_v15:
+  penpot_assets:
+
+services:
+  penpot-frontend:
+    image: "penpotapp/frontend:latest"
+    restart: always
+    ports:
+      - "9001:8080"
+    volumes:
+      - penpot_assets:/opt/data/assets
+    depends_on:
+      - penpot-backend
+      - penpot-exporter
+    networks:
+      - penpot
+    environment:
+      << : [*penpot-flags, *penpot-http-body-size]
+
+  penpot-backend:
+    image: "penpotapp/backend:latest"
+    restart: always
+    volumes:
+      - penpot_assets:/opt/data/assets
+    depends_on:
+      penpot-postgres:
+        condition: service_healthy
+      penpot-valkey:
+        condition: service_healthy
+    networks:
+      - penpot
+    environment:
+      << : [*penpot-flags, *penpot-public-uri, *penpot-http-body-size, *penpot-secret-key]
+
+      # Database configuration
+      PENPOT_DATABASE_URI: postgresql://penpot-postgres/penpot
+      PENPOT_DATABASE_USERNAME: penpot
+      PENPOT_DATABASE_PASSWORD: penpot
+
+      # Redis/Valkey for websockets
+      PENPOT_REDIS_URI: redis://penpot-valkey/0
+
+      # Assets storage (filesystem)
+      PENPOT_ASSETS_STORAGE_BACKEND: assets-fs
+      PENPOT_STORAGE_ASSETS_FS_DIRECTORY: /opt/data/assets
+
+      # Telemetry (optional, can be disabled)
+      PENPOT_TELEMETRY_ENABLED: false
+
+      # SMTP (using mailcatch for development)
+      PENPOT_SMTP_DEFAULT_FROM: no-reply@153.se
+      PENPOT_SMTP_DEFAULT_REPLY_TO: no-reply@153.se
+      PENPOT_SMTP_HOST: penpot-mailcatch
+      PENPOT_SMTP_PORT: 1025
+      PENPOT_SMTP_USERNAME:
+      PENPOT_SMTP_PASSWORD:
+      PENPOT_SMTP_TLS: false
+      PENPOT_SMTP_SSL: false
+
+  penpot-exporter:
+    image: "penpotapp/exporter:latest"
+    restart: always
+    depends_on:
+      penpot-valkey:
+        condition: service_healthy
+    networks:
+      - penpot
+    environment:
+      << : [*penpot-secret-key]
+      PENPOT_PUBLIC_URI: http://penpot-frontend:8080
+      PENPOT_REDIS_URI: redis://penpot-valkey/0
+
+  penpot-postgres:
+    image: "postgres:15"
+    restart: always
+    stop_signal: SIGINT
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U penpot"]
+      interval: 2s
+      timeout: 10s
+      retries: 5
+      start_period: 2s
+    volumes:
+      - penpot_postgres_v15:/var/lib/postgresql/data
+    networks:
+      - penpot
+    environment:
+      - POSTGRES_INITDB_ARGS=--data-checksums
+      - POSTGRES_DB=penpot
+      - POSTGRES_USER=penpot
+      - POSTGRES_PASSWORD=penpot
+
+  penpot-valkey:
+    image: valkey/valkey:8.1
+    restart: always
+    healthcheck:
+      test: ["CMD-SHELL", "valkey-cli ping | grep PONG"]
+      interval: 1s
+      timeout: 3s
+      retries: 5
+      start_period: 3s
+    networks:
+      - penpot
+    environment:
+      - VALKEY_EXTRA_FLAGS=--maxmemory 128mb --maxmemory-policy volatile-lfu
+
+  penpot-mailcatch:
+    image: sj26/mailcatcher:latest
+    restart: always
+    expose:
+      - '1025'
+    ports:
+      - "1080:1080"
+    networks:
+      - penpot
