@@ -164,6 +164,39 @@ Total: 5 projects
 All planning: https://github.com/gpt153/supervisor
 ```
 
+### 5. Design and Build User Interfaces
+
+**User mentions:** UI design, mockups, prototypes, mobile app design, dashboard design, etc.
+
+**What you can help with:**
+- Interactive prototypes (Penpot)
+- Web component development (Storybook)
+- Mobile UI testing (Expo Snack)
+- Export to production code
+
+**Available Services:**
+- **Penpot** (https://penpot.153.se) - Design tool like Figma
+- **Storybook** (https://storybook.153.se) - Interactive web components
+- **Expo Snack** (https://expo.153.se) - Mobile React Native testing
+
+**How it works:**
+1. User describes UI needs
+2. You guide through 3-phase workflow
+3. User creates visual designs in Penpot
+4. You generate interactive code (Storybook or Expo)
+5. User tests and gives feedback
+6. You export approved code to project
+
+**When to offer:**
+- User mentions "design", "UI", "mockup", "prototype"
+- New project needs interface design
+- Existing project needs new screens/features
+
+**Documentation:**
+- Quick start: `/home/samuel/supervisor/docs/ui-workflow-quick-start.md`
+- Full guide: `/home/samuel/supervisor/docs/ui-workflow-system.md`
+- Command: `.claude/commands/ui-workflow.md`
+
 ---
 
 ## 🚀 Available Commands
@@ -192,6 +225,65 @@ User: "/new-project hitster-game"
 **You handle:** Spawning subagent, interpreting results, continuing planning
 
 **Subagent handles:** All technical setup, asking questions, creating files
+
+---
+
+### /ui-workflow
+
+**Purpose:** Guide user through UI design and implementation workflow
+
+**Usage:**
+```
+User: "I need to design a dashboard"
+User: "Let's create mobile app UI"
+User: "/ui-workflow"
+```
+
+**What happens:**
+1. Ask what type of UI (web, mobile, desktop)
+2. Start appropriate services (Penpot, Storybook, or Expo)
+3. Guide user through 3-phase workflow:
+   - Phase 1: Discuss requirements (in chat)
+   - Phase 2: Create prototype in Penpot (https://penpot.153.se)
+   - Phase 3: Build coded mockup (Storybook or Expo Snack)
+   - Phase 4: Export to project when approved
+4. Generate React/React Native components
+5. User tests interactively via browser or phone
+6. Iterate based on feedback
+7. Export approved code to project
+
+**Services:**
+- **Penpot** (port 9001) - https://penpot.153.se - Visual design tool
+- **Storybook** (port 6006) - https://storybook.153.se - Web component playground
+- **Expo Info** (port 6007) - https://expo.153.se - Mobile workflow info
+
+**Management Scripts:**
+```bash
+# Located in: /home/samuel/supervisor/.ui-services/scripts/
+
+# Penpot
+./penpot.sh {start|stop|restart|status|logs|update}
+
+# Storybook
+./storybook.sh {start|stop|restart|status|new|use|list}
+
+# Expo Snack
+./expo-snack.sh {create|upload|list|open|delete|info}
+
+# Expo web page
+./expo-web.sh {start|stop|restart|status}
+```
+
+**File Locations:**
+- Templates: `/home/samuel/supervisor/.ui-services/storybook-templates/`
+- Expo components: `/home/samuel/supervisor/.ui-services/expo-snack/generated/`
+- Documentation: `/home/samuel/supervisor/docs/ui-workflow-*.md`
+
+**Important:**
+- All services run on VM, accessible via Cloudflare tunnel
+- User accesses via browser (no local tools needed)
+- User gives feedback in CLI, you make updates
+- Services configured in: `/etc/cloudflared/config.yml`
 
 ---
 
@@ -279,6 +371,59 @@ Now in planning workspace. Let me create initial epics..."
 2. For each, read project-brief.md
 3. Report name, status, description
 
+### When User Mentions: UI Design, Mockups, Prototypes, Dashboard Design, Mobile App UI
+
+**Recognize triggers:**
+- "I need to design..."
+- "Let's create a dashboard/login screen/mobile app"
+- "Can you help me with the UI..."
+- "I want to prototype..."
+- "/ui-workflow"
+
+**You respond:**
+```
+I can help you design that! We have a complete UI workflow system.
+
+What type of app?
+1. Web/Desktop → We'll use Penpot + Storybook
+2. Mobile (iOS/Android) → We'll use Penpot + Expo Snack
+
+[Based on answer:]
+
+Great! Here's how we'll work:
+
+Phase 1: We'll discuss requirements here
+Phase 2: You'll design in Penpot (https://penpot.153.se)
+Phase 3: I'll create interactive components you can test
+Phase 4: When you're happy, I'll export to your project
+
+Let me start [Penpot/Storybook]...
+```
+
+**Then:**
+1. Start appropriate services using scripts:
+   ```bash
+   /home/samuel/supervisor/.ui-services/scripts/penpot.sh start
+   /home/samuel/supervisor/.ui-services/scripts/storybook.sh start  # for web
+   # OR
+   /home/samuel/supervisor/.ui-services/scripts/expo-web.sh start  # for mobile
+   ```
+2. Wait for services to start (Penpot: ~60 sec, Storybook: ~15 sec)
+3. Give user the URLs
+4. Guide through workflow based on `.claude/commands/ui-workflow.md`
+
+**Important:**
+- Don't show code to user (they're not a coder)
+- Focus on visual design and interaction
+- Generate components behind the scenes
+- User tests via browser/phone, gives feedback in CLI
+- You iterate until approved
+
+**Reference:**
+- Full workflow: `/home/samuel/supervisor/docs/ui-workflow-system.md`
+- Quick start: `/home/samuel/supervisor/docs/ui-workflow-quick-start.md`
+- Command instructions: `/home/samuel/supervisor/.claude/commands/ui-workflow.md`
+
 ---
 
 ## 📚 Shared Documentation (CENTRALIZED SYSTEM)
@@ -296,6 +441,8 @@ Now in planning workspace. Let me create initial epics..."
 - `context-handoff.md` - Automatic handoff
 - `epic-sharding.md` - Token reduction
 - `CENTRALIZED-SUPERVISOR-SYSTEM.md` - 🆕 **How to update all supervisors**
+- `ui-workflow-system.md` - 🆕 **Complete UI design & implementation workflow**
+- `ui-workflow-quick-start.md` - 🆕 **5-minute UI workflow guide**
 
 **Edit once → applies to all projects**
 
@@ -408,6 +555,13 @@ User says "Status of all projects"
   → Read each workflow-status.yaml
   → Check GitHub issues
   → Comprehensive report
+
+User mentions "design UI" / "create mockup" / "dashboard" / "mobile app UI"
+  → Offer UI workflow system
+  → Ask: Web or Mobile?
+  → Start Penpot + (Storybook OR Expo)
+  → Guide through 3-phase workflow
+  → Export code when approved
 
 User says "Work on [project]"
   → Inform: "For [project] work, spawn subagent in that directory"
