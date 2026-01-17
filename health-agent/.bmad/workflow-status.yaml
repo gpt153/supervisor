@@ -386,17 +386,17 @@ epics:
     description: "Phase 3 long-term architectural improvements: Implement async database operations, add caching for AI, implement dependency injection, add integration tests, implement event sourcing, add metrics/monitoring, implement feature flags, and add API versioning. Total estimated time: 112 hours."
 
   - id: "009"
-    title: "Custom Tracking System - Dynamic Health Metrics"
-    status: not_started
+    title: "Ultimate Memory System - Visual Food Memory & Pattern Detection"
+    status: draft
     priority: high
-    complexity: 2  # Medium complexity - new feature with JSONB
-    created: 2026-01-16
+    complexity: 3  # Large complexity - multi-phase system
+    created: 2026-01-17
     started: null
     completed: null
-    issues: []  # To be created
+    issues: []  # To be created in phases
     blocked_by: null
     blocks: []
-    description: "Enable users to track custom health metrics (period cycles, symptoms, energy, medications, etc.) using PostgreSQL JSONB for flexible schema-per-tracker. Agent integration for contextual advice based on custom data patterns. See ADR-006 and epic-006-custom-tracking-system.md. Estimated time: 25 hours (7 phases)."
+    description: "Build ultimate memory system with (1) Visual Food Memory: image embeddings, plate recognition, food formulas, portion comparison using CLIP + pgvector, and (2) Pattern Detection Engine: discover complex health patterns (temporal correlations, multi-factor analysis, sequences, cycles) using PostgreSQL time-series analysis. Makes users feel truly known by remembering details and connecting dots automatically. Total estimated time: 80 hours (7 phases)."
 
 # Progress Metrics
 metrics:
@@ -538,6 +538,31 @@ notes: |
     * #82: Add metrics/monitoring (8h)
     * #83: Implement feature flags (8h)
     * #84: Add API versioning (8h)
+
+  CUSTOM TRACKING SYSTEM DEPLOYED (2026-01-16 18:58):
+  - Custom tracking with JSONB fully implemented via PR #102
+  - Users can now create dynamic trackers for periods, symptoms, medications, etc.
+  - ADR-006 documented the architecture decision
+  - Database migrations 019 & 020 applied
+  - Status: Production-ready and deployed
+
+  EPIC 009: ULTIMATE MEMORY SYSTEM (2026-01-17):
+  - Epic 009 created: Visual Food Memory + Pattern Detection Engine
+  - 7 phases planned - 80 hours total estimated
+  - Status: Draft (awaiting user approval to start)
+  - Blocked by: None (can start immediately)
+  - Focus Part 1: Visual food memory (image embeddings, plate recognition, food formulas, portion comparison)
+  - Focus Part 2: Pattern detection engine (temporal correlations, multi-factor analysis, health insights)
+  - Key features:
+    * Automatic protein shake recognition from photos
+    * Portion comparison: "More rice than last time"
+    * Plate/container recognition and calibration
+    * Discover complex health patterns: "Tired after pasta when sleep is poor"
+    * Multi-factor analysis: sleep + food + stress interactions
+    * Cycle-based patterns: menstrual, weekly, seasonal
+    * Statistical significance testing for all patterns
+  - Strategic value: Transform from tracking tool to intelligent health coach
+  - See: .bmad/epic-009-ultimate-memory-system.md for complete specification
 
   TOTAL PLANNING COVERAGE:
   - Phase 1: 5 issues, 8 hours (active)
