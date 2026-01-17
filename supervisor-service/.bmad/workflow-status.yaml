@@ -48,6 +48,7 @@ phases:
     completed_at: null
     agent: supervisor_subagents
     phase_1_completed_at: 2026-01-17T15:00:00+01:00
+    phase_2_completed_at: 2026-01-17T15:30:00+01:00
     github_issues:
       - number: 1
         title: "Project setup and dependencies"
@@ -80,25 +81,25 @@ phases:
         epic: "001-persistent-supervisor-service"
         completed_at: 2026-01-17T15:00:00+01:00
       - number: 7
-        title: "Phase 2.2: Implement session repository"
-        status: open
+        title: "Webhook endpoint and signature validation"
+        status: completed
         epic: "001-persistent-supervisor-service"
-        assignee: scar
+        completed_at: 2026-01-17T15:30:00+01:00
       - number: 8
-        title: "Phase 2.3: Create supervisor agent instance manager"
-        status: open
+        title: "Event processing and project identification"
+        status: completed
         epic: "001-persistent-supervisor-service"
-        assignee: scar
+        completed_at: 2026-01-17T15:30:00+01:00
       - number: 9
-        title: "Phase 2.4: Add session lifecycle endpoints"
-        status: open
+        title: "Auto-trigger verification on SCAR completion"
+        status: completed
         epic: "001-persistent-supervisor-service"
-        assignee: scar
+        completed_at: 2026-01-17T15:30:00+01:00
       - number: 10
-        title: "Phase 2.5: Test session persistence"
-        status: open
+        title: "Post verification results to GitHub"
+        status: completed
         epic: "001-persistent-supervisor-service"
-        assignee: scar
+        completed_at: 2026-01-17T15:30:00+01:00
       - number: 11
         title: "Phase 3.1: Create Claude.ai integration adapter"
         status: open
@@ -156,8 +157,8 @@ phases:
 
 # Current Work
 current_epic: "001-persistent-supervisor-service"
-active_issues: [7, 8, 9, 10]
-completed_issues: [1, 2, 3, 4, 5, 6]
+active_issues: [11, 12, 13, 14, 15, 16, 17]
+completed_issues: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
 # Epic Status Tracking
 epics:
@@ -178,10 +179,10 @@ metrics:
   total_epics: 1
   completed_epics: 0
   total_issues: 20
-  completed_issues: 6
+  completed_issues: 10
   in_progress_issues: 0
   blocked_issues: 0
-  completion_percentage: 30
+  completion_percentage: 50
 
 # Notes and Context
 notes: |
@@ -203,6 +204,15 @@ notes: |
   - HTTP server with health checks
   - Session persistence ready
   - Code pushed to GitHub: https://github.com/gpt153/supervisor-service
+
+  Phase 2 Complete (2026-01-17): GitHub Webhooks & Automated Verification
+  - Issues #7-10 completed using supervisor subagents
+  - Webhook endpoint with HMAC signature validation
+  - Event processing and project identification
+  - Auto-trigger verification on SCAR completion
+  - Post verification results to GitHub issues
+  - Async queue processor for background tasks
+  - Commit: 375b4d1
 
 # Decision Log (Quick References)
 decisions:
