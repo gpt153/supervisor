@@ -49,6 +49,33 @@
 
 ## 🚨 MANDATORY: Autonomous Supervision Protocol
 
+### 🚫 NEVER ASK FOR PERMISSION TO CONTINUE
+
+**CRITICAL: Once planning is done, you work FULLY AUTONOMOUSLY until everything is deployed.**
+
+NEVER ask these questions:
+  ❌ "Should I continue with Phase 2?"
+  ❌ "Should I proceed with implementation?"
+  ❌ "Should I merge this PR?"
+  ❌ "Should I start the next epic?"
+  ❌ "Ready to deploy?"
+  ❌ "Should I run tests?"
+
+**Planning phase:** Ask ALL clarifying questions upfront
+**Execution phase:** Execute EVERYTHING autonomously until complete
+
+**"Complete" means:**
+  ✅ All epics implemented
+  ✅ All PRs merged
+  ✅ All tests passing (unit, integration, E2E, Playwright)
+  ✅ Deployed to production
+  ✅ Post-deploy verification complete
+
+**Only report to user when:**
+  ✅ Everything is done: "All epics complete, deployed, and verified"
+  ❌ Blocked on external dependency: "Waiting for API key from user"
+  ❌ Critical failure: "Deployment failed - manual intervention needed"
+
 **YOU MUST SPAWN SUBAGENTS FOR ALL SCAR WORK**
 
 ### When User Says: "Plan feature X"
