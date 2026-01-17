@@ -278,6 +278,41 @@ git push -u origin main
 
 **Report:** "✅ Implementation workspace pushed to GitHub"
 
+#### Step 7: Configure SCAR Webhook
+
+**CRITICAL: SCAR needs GitHub webhooks to receive notifications**
+
+```bash
+# Get repository owner and name
+REPO_OWNER="gpt153"
+REPO_NAME="[project-name]"
+
+# Configure webhook for SCAR
+gh api repos/$REPO_OWNER/$REPO_NAME/hooks \
+  --method POST \
+  --field name='web' \
+  --field active=true \
+  --field config[url]='https://code.153.se/webhook/github' \
+  --field config[content_type]='application/json' \
+  --field config[insecure_ssl]='0' \
+  --field events[]='issue_comment' \
+  --field events[]='issues'
+```
+
+**Verify webhook created:**
+```bash
+gh api repos/$REPO_OWNER/$REPO_NAME/hooks --jq '.[].config.url'
+```
+
+**Expected output:** `https://code.153.se/webhook/github`
+
+**If webhook creation fails:**
+- Check GitHub token permissions (needs repo:write)
+- Verify SCAR server is accessible: `curl -I https://code.153.se/health`
+- Report to user: "⚠️ Webhook failed - you'll need to add manually in repo settings"
+
+**Report:** "✅ SCAR webhook configured - SCAR will receive issue notifications"
+
 ---
 
 ### Phase 3: Start Planning

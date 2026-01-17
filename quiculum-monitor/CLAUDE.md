@@ -69,6 +69,51 @@ DO NOT:
 
 The subagent does EVERYTHING autonomously.
 
+### When Epic Has Multiple Independent Issues
+
+**If epic contains multiple issues with NO dependencies:**
+
+EXECUTE THIS:
+  1. Read epic's Dependencies section
+  2. Identify ALL independent issues (can run in parallel)
+  3. Create ALL GitHub issues at once (2s delay between each for rate limits)
+  4. 🆕 SPAWN MULTIPLE supervise-issue.md subagents in PARALLEL:
+     ```
+     In single message, call Task tool multiple times:
+     - Task: supervise-issue.md {issue-1}
+     - Task: supervise-issue.md {issue-2}
+     - Task: supervise-issue.md {issue-3}
+     ```
+  5. ✅ RETURN TO IDLE (all subagents work autonomously)
+
+**Result:**
+- SCAR works on up to 10 issues simultaneously
+- Each issue has its own autonomous supervision
+- No blocking, maximum parallelism
+- Context conserved (each subagent uses ~20K tokens independently)
+
+**Example:**
+```
+Epic-003 has 5 independent issues:
+  - Issue #10: Database schema
+  - Issue #11: API endpoints
+  - Issue #12: Frontend components
+  - Issue #13: Tests
+  - Issue #14: Documentation
+
+Supervisor:
+  1. Creates all 5 GitHub issues
+  2. Spawns 5 supervise-issue.md subagents in ONE message
+  3. Returns to idle
+
+All 5 issues complete in parallel, autonomous supervision on each.
+```
+
+DO NOT:
+  ❌ Spawn issues sequentially if they're independent
+  ❌ Wait for one to finish before spawning next
+  ❌ Monitor any of them yourself
+
 ### Available Supervision Subagents
 
 Located: `/home/samuel/supervisor/.claude/commands/supervision/`
