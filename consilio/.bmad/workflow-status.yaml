@@ -223,16 +223,36 @@ epics:
 
   - id: "006"
     title: "GDPR Compliance & Production Readiness"
-    status: draft
+    status: ready
     priority: high
     complexity: 2
-    created: 2026-01-15
+    created: 2026-01-17
     started: null
     completed: null
     issues: []
     blocked_by: "005"
     blocks: []
-    notes: Required for EU/Swedish launch - data export, deletion, retention
+    epic_file: epics/006-gdpr-compliance-production-readiness.md
+    notes: |
+      Required for EU/Swedish launch - data export, deletion, retention.
+
+      EPIC CREATED (2026-01-17):
+      ✅ Complete GDPR compliance specification (15 implementation tasks)
+      ✅ Data export (Article 15 - Right of Access)
+      ✅ Data deletion (Article 17 - Right to Erasure)
+      ✅ Data retention policies (Article 5 - Storage Limitation)
+      ✅ Consent management (Article 7)
+      ✅ Privacy policy compliance (Article 13)
+      ✅ Enhanced audit logging (immutable, cryptographic hashing)
+      ✅ Production deployment documentation
+      ✅ Security hardening (rate limiting, encryption)
+      ✅ Comprehensive testing strategy
+
+      BLOCKED BY: Epic 005 (AI Document Generation must complete first)
+
+      ESTIMATED EFFORT: 2 weeks (68 hours)
+
+      NEXT STEPS: Wait for Epic 005 completion, then create GitHub issues
 
   - id: "007"
     title: "UX Redesign: Case-Switcher + Dual Dashboard"
