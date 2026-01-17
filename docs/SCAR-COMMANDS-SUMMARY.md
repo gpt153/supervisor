@@ -1,7 +1,16 @@
 # SCAR Commands & Centralized Supervisor System - Summary
 
 **Created:** 2026-01-17
+**Updated:** 2026-01-17 (CORRECTED with actual SCAR command syntax)
 **Purpose:** Inform all project supervisors about SCAR commands and centralized instruction system
+
+## 🚨 CRITICAL CORRECTION
+
+**The initial documentation was INCORRECT.**
+
+**SCAR uses `/command-invoke <command> [args]` syntax, NOT plain @scar mentions!**
+
+This summary has been updated with correct information from `/home/samuel/course/` documentation.
 
 ---
 
@@ -96,54 +105,58 @@ cat /home/samuel/supervisor/docs/scar-command-reference.md
 
 ---
 
-## 🚀 Quick Start: Using SCAR Commands
+## 🚀 Quick Start: Using SCAR Commands (CORRECTED)
 
 ### When Creating Issue for SCAR
 
+**Step 1: Create issue with epic content**
 ```markdown
-@scar - Implement user authentication API following epic specifications.
+Title: [Epic-001] User Authentication
 
-## Epic Reference
-.bmad/epics/001-user-authentication.md
+Body:
+Implement user authentication as specified in epic.
 
-[Include full epic content here]
+**Epic Reference:** .bmad/epics/001-user-authentication.md
 
-## Tasks
-- [ ] Create User model
-- [ ] POST /auth/signup endpoint
-- [ ] POST /auth/login endpoint
-
-## Acceptance Criteria
-- [ ] Build passes (npm run build)
-- [ ] Tests pass (npm test)
-- [ ] No mocks or placeholders
-
-CRITICAL: No mock implementations unless in PRD.
+## Epic Context
+[Paste full epic content]
 ```
 
-**Then:**
-1. Wait 20s for "SCAR is on the case..." comment
-2. Check worktree files created within 60s
-3. Start monitoring: `/supervise-issue 123`
-
-### When Verifying SCAR's Work
-
-```bash
-# ALWAYS verify before accepting
-/verify-scar-phase consilio 123 2
-
-# Returns: APPROVED, NEEDS FIXES, or REJECTED
+**Step 2: Prime codebase**
+```markdown
+Comment on issue:
+@scar /command-invoke prime
 ```
 
-### When Monitoring Progress
-
-```bash
-# Single issue
-/supervise-issue 123
-
-# Entire project
-/supervise
+**Step 3: Plan feature**
+```markdown
+After prime completes, comment:
+@scar /command-invoke plan-feature-github "Add JWT authentication with login/logout endpoints, password hashing, and refresh token support per epic-001"
 ```
+
+**Step 4: Execute implementation**
+```markdown
+After plan completes, SCAR provides exact command like:
+"Next step: @scar /command-invoke execute-github .agents/plans/epic-001-auth.md feature-epic-001-auth"
+
+Copy and paste that EXACT command as a comment.
+```
+
+**Step 5: Review PR**
+```markdown
+SCAR creates PR automatically. Review and merge when ready.
+```
+
+### SCAR Verification (These are META commands supervisors use, NOT for SCAR)
+
+**Note:** These are commands for supervisor workflows, NOT commands you send to SCAR in GitHub issues.
+
+Supervisors use these in their own workflows to verify SCAR's work:
+- Spawn verification subagents with Task tool
+- Read implementation files directly
+- Check builds and tests manually
+
+**SCAR handles its own validation during execute-github** (runs tests, linting, type-check automatically before creating PR).
 
 ---
 
