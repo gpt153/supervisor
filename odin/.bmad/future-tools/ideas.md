@@ -27,3 +27,15 @@
 ---
 
 <!-- Add your ideas below this line -->
+
+### Tool: Swedish Grant Discovery RAG
+- **One-liner:** Find every grant you're eligible for across Sweden/EU
+- **Why:** Grants are scattered across 100+ sources, users miss opportunities
+- **Complexity:** 4
+- **Status:** Planning Complete (tool-005-swedish-grants-rag/)
+
+### Tool: AI Personas - Learn from Thought Leaders
+- **One-liner:** Create AI personas of experts (Huberman, Weinstein) from their content
+- **Why:** Can't ask YouTube videos questions or compare expert perspectives
+- **Complexity:** 5
+- **Status:** Planning Complete (tool-006-ai-personas/)
