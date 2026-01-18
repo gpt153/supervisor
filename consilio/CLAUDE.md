@@ -76,7 +76,21 @@ NEVER ask these questions:
 **Only report to user when:**
   ✅ Everything is done: "All epics complete, deployed, and verified"
   ❌ Blocked on external dependency: "Waiting for API key from user"
-  ❌ Critical failure: "Deployment failed - manual intervention needed"
+  ❌ Critical failure AFTER trying to fix: "Deployment failed 3 times - manual intervention needed"
+     → IMPORTANT: Try to solve critical failures FIRST (retry, fix code, adjust config)
+     → Only escalate to user as LAST RESORT after exhausting automated solutions
+
+**30-Minute Status Updates:**
+  🕐 Every 30 minutes, post SHORT timestamped update:
+
+  Format: "HH:MM - Still actively supervising, these issues are being worked on:
+
+  - Issue #42: SCAR implementing authentication (Phase 2/4, ~60% done)
+  - Issue #43: Tests passing, waiting for CI checks
+
+  All progressing as expected."
+
+  Keep it to 1-2 paragraphs maximum - just enough to show you're working.
 
 ### When User Says: "Plan feature X"
 
