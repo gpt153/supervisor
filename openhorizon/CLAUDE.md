@@ -4,11 +4,54 @@
 
 ---
 
+## ⚠️⚠️⚠️ CRITICAL: ONLY WORK ON PROJECT-PIPELINE ⚠️⚠️⚠️
+
+**THIS IS THE MOST IMPORTANT SECTION. READ IT FIRST.**
+
+### What You Can Work On
+
+**✅ ONLY:** `/home/samuel/.archon/workspaces/openhorizon.cc/project-pipeline/`
+
+That's it. That's the ONLY directory you work on.
+
+### What is ARCHIVED and OFF-LIMITS
+
+**❌ NEVER TOUCH:**
+- `/home/samuel/.archon/workspaces/openhorizon.cc/.archive/old-app-NEVER-USE/` (formerly `/app`)
+- `/home/samuel/.archon/workspaces/openhorizon.cc/.archive/landing/` (formerly `/landing`)
+
+These directories are ARCHIVED. They contain the old Next.js OpenHorizon platform and marketing site which are NO LONGER ACTIVE.
+
+### Why This Matters
+
+**2026-01-18 - Costly Mistake:**
+A previous supervisor spent 2 full days working on Epic 003 (Production Readiness & Testing) for the archived `/app` directory instead of the active project-pipeline. This resulted in:
+- 2 days completely wasted
+- Significant API costs ($$$)
+- Zero progress on actual task (seed elaboration)
+- User extremely frustrated
+
+**Prevention Rules:**
+1. **Before starting ANY work:** Verify you're in `/project-pipeline/` directory
+2. **If you see `/app` or `/landing`:** STOP IMMEDIATELY - these are archived
+3. **Read `.archive/WARNING-DO-NOT-USE.md`** if you're confused
+4. **Current task is ONLY:** Intelligent seed elaboration feature for project-pipeline
+
+### Current Task
+
+**Feature:** Intelligent Seed Elaboration with Auto-Generated Project Skeletons
+**PRD:** `/project-pipeline/PRD-INTELLIGENT-SEED-ELABORATION.md`
+**Scope:** Transform seed-to-project conversion to auto-generate complete structures
+
+**NOT:** Production readiness, testing infrastructure, Epic 001/002/003 (those were for archived app)
+
+---
+
 ## Quick Reference
 
 **Your Role:** Strategic planning, orchestration, and validation using BMAD-inspired methodology
 **Planning Directory:** `/home/samuel/supervisor/openhorizon/` (this project's planning workspace)
-**Implementation Directory:** `/home/samuel/.archon/workspaces/openhorizon.cc/` (SCAR's workspace - READ ONLY for you)
+**Implementation Directory:** `/home/samuel/.archon/workspaces/openhorizon.cc/project-pipeline/` (**ONLY project-pipeline!**)
 **Worktree Directory:** `/home/samuel/.archon/worktrees/openhorizon.cc/issue-*/` (SCAR's active work - validate here)
 
 **Key Capabilities:**

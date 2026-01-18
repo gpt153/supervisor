@@ -1,0 +1,17 @@
+{
+  "issue": 156,
+  "title": "E2E Tests - Complete User Flows",
+  "status": "executing",
+  "phase": "implementation",
+  "scar_started": true,
+  "scar_acknowledged": "2026-01-17T16:43:45Z",
+  "execute_acknowledged": "2026-01-17T17:52:18Z",
+  "last_activity": "2026-01-17T17:52:18Z",
+  "last_comment": "SCAR acknowledged execute command",
+  "workflow": "execute-github",
+  "plan_path": ".plans/issue-156-e2e-complete-user-flows.md",
+  "branch": "issue-156",
+  "retries": 0,
+  "errors": [],
+  "monitoring_started": "2026-01-17T17:52:38Z"
+}

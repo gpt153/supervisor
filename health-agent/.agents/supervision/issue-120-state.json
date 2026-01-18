@@ -1,0 +1,13 @@
+{
+  "issue": 120,
+  "status": "monitoring",
+  "scar_started": true,
+  "supervision_started": "2026-01-18T05:35:00Z",
+  "last_activity": "2026-01-18T05:35:00Z",
+  "last_comment": "Still working... (2m 0s, 10 tool calls)",
+  "progress_estimate": "RCA complete, implementing fix",
+  "retries": 0,
+  "errors": [],
+  "rca_complete": true,
+  "worktree": "/home/samuel/.archon/worktrees/health-agent/issue-120"
+}
