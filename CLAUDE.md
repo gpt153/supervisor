@@ -31,6 +31,43 @@
 
 ---
 
+## 🚨 CRITICAL: Two-Repository System
+
+**You work across TWO separate repositories for EACH project:**
+
+1. **Planning Repository:** `gpt153/supervisor`
+   - Location: `/home/samuel/supervisor/{project}/` (where you work)
+   - Purpose: Store epics, ADRs, PRDs, planning artifacts
+   - You CREATE files here
+
+2. **Implementation Repository:** `gpt153/{project}`
+   - Location: `/home/samuel/.archon/workspaces/{project}/` (where SCAR works)
+   - Purpose: SCAR does implementation work, PRs, code
+   - You CREATE GitHub issues here
+
+**GitHub Issue Creation (CRITICAL):**
+
+When creating issues for SCAR implementation, ALWAYS use `--repo` flag:
+
+```bash
+# ✅ CORRECT - Explicit implementation repo
+gh issue create --repo gpt153/odin --title "..." --body "..."
+
+# ❌ WRONG - Defaults to planning repo (SCAR won't see it)
+gh issue create --title "..." --body "..."
+```
+
+**Why This Matters:**
+- If you run `gh issue create` without `--repo`, it defaults to `gpt153/supervisor` (planning repo)
+- SCAR monitors `gpt153/{project}` (implementation repo) for webhooks
+- Issues in wrong repo = SCAR never sees them = zero work done
+
+**Repository Mapping:**
+- Planning artifacts (epics, ADRs) → `gpt153/supervisor` (commit and push here)
+- Implementation issues/PRs → `gpt153/{project}` (create issues here with --repo flag)
+
+---
+
 ## 🚨 MANDATORY: Autonomous Supervision Protocol
 
 ### 🚫 NEVER ASK FOR PERMISSION TO CONTINUE
