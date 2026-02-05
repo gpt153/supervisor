@@ -1,0 +1,30 @@
+/* Filing Tab Row - Fixed position, no borders for clean filing effect */
+
+.case-button-row {
+  width: 100%;
+  background-color: #d1d5db; /* Darker gray background for better contrast */
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+}
+
+.case-button-row__scroll {
+  display: flex;
+  gap: 0;
+  padding: 8px 16px 0 16px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep functionality */
+.case-button-row__scroll::-webkit-scrollbar {
+  height: 0;
+  display: none;
+}
+
+.case-button-row__scroll {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}

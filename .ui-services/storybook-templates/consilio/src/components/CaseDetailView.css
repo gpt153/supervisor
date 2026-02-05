@@ -1,0 +1,158 @@
+.case-detail-view {
+  min-height: 100vh;
+  background-color: #f9fafb;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  padding-top: 80px; /* Space for fixed filing tabs */
+}
+
+/* Sticky Case Button Row - Fixed at Top */
+.case-detail-view__button-row-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background-color: white;
+}
+
+/* Sticky Tabs Container - No top border for seamless filing tab effect */
+.case-detail-view__tabs-container {
+  position: sticky;
+  top: 80px; /* Height of case button row */
+  z-index: 90;
+  background-color: white;
+  border-bottom: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.case-detail-view__tabs {
+  display: flex;
+  gap: 4px;
+  padding: 12px 24px;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+}
+
+.case-detail-view__tabs::-webkit-scrollbar {
+  height: 6px;
+}
+
+.case-detail-view__tabs::-webkit-scrollbar-track {
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.case-detail-view__tabs::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+}
+
+/* Individual Tab Button */
+.case-tab {
+  padding: 8px 16px;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  color: #6b7280;
+  white-space: nowrap;
+  transition: all 0.15s ease;
+}
+
+.case-tab:hover {
+  background-color: #f3f4f6;
+  color: #374151;
+}
+
+.case-tab--active {
+  background-color: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1e40af;
+  font-weight: 600;
+}
+
+/* Content Area */
+.case-detail-view__content {
+  padding: 24px;
+}
+
+.case-detail-view__content-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  border-radius: 8px;
+  padding: 24px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.content-heading {
+  margin: 0 0 20px 0;
+  font-size: 24px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.content-placeholder {
+  color: #6b7280;
+  line-height: 1.6;
+}
+
+.content-placeholder ul {
+  margin: 16px 0;
+  padding-left: 24px;
+}
+
+.content-placeholder li {
+  margin: 8px 0;
+}
+
+.dummy-content {
+  margin-top: 32px;
+  padding-top: 32px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.dummy-content h3 {
+  margin: 24px 0 12px 0;
+  font-size: 18px;
+  font-weight: 600;
+  color: #374151;
+}
+
+.dummy-content p {
+  margin: 12px 0;
+  color: #6b7280;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+  .case-detail-view {
+    padding-top: 70px;
+  }
+
+  .case-detail-view__tabs-container {
+    top: 70px;
+  }
+
+  .case-detail-view__tabs {
+    padding: 8px 16px;
+  }
+
+  .case-tab {
+    padding: 6px 12px;
+    font-size: 13px;
+  }
+
+  .case-detail-view__content {
+    padding: 16px;
+  }
+
+  .case-detail-view__content-inner {
+    padding: 16px;
+  }
+
+  .content-heading {
+    font-size: 20px;
+  }
+}
