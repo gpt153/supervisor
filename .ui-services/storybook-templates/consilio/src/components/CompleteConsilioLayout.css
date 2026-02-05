@@ -55,16 +55,6 @@
   height: 100%;
 }
 
-@media (max-width: 1024px) {
-  .consilio-layout__topbar-left {
-    display: flex; /* Show menu button on mobile/tablet */
-  }
-
-  .consilio-layout__case-tabs-container {
-    padding-left: 0; /* Remove padding on mobile since menu button provides spacing */
-  }
-}
-
 .menu-button {
   background: none;
   border: none;
@@ -87,7 +77,7 @@
   height: 100%; /* Full height of topbar */
   display: flex;
   align-items: flex-end; /* CRITICAL: Align to bottom */
-  padding-left: 24px; /* CRITICAL: Align with main content left edge */
+  padding-left: calc(var(--sidebar-width) + 24px); /* CRITICAL: Align with main content (sidebar + content padding) */
   /* NO BORDER - seamless connection */
 }
 
@@ -430,6 +420,10 @@
     left: var(--sidebar-collapsed-width);
   }
 
+  .consilio-layout__case-tabs-container {
+    padding-left: calc(var(--sidebar-collapsed-width) + 24px); /* Align with collapsed sidebar + content padding */
+  }
+
   .sidebar-tab__label {
     display: none;
   }
@@ -438,6 +432,14 @@
 @media (max-width: 768px) {
   .consilio-layout__sidebar {
     transform: translateX(-100%);
+  }
+
+  .consilio-layout__topbar-left {
+    display: flex; /* Show menu button on mobile */
+  }
+
+  .consilio-layout__case-tabs-container {
+    padding-left: 0; /* No padding on mobile - menu button provides spacing */
   }
 
   .consilio-layout__nav-tabs {
