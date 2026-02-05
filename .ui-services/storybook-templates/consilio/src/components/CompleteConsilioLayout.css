@@ -324,7 +324,7 @@
 .consilio-layout__content-inner {
   padding: 24px;
   max-width: 1400px;
-  margin: 0 auto;
+  /* Left-aligned, not centered */
 }
 
 /* ============================================================================
