@@ -1,4 +1,5 @@
 import type { StorybookConfig } from "@storybook/react-vite";
+import path from 'path';
 
 const config: StorybookConfig = {
   stories: ["../src/**/*.mdx", "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"],
@@ -19,6 +20,15 @@ const config: StorybookConfig = {
       config.server.host = true; // Allow all hosts
       config.server.allowedHosts = ['storybook.153.se', 'localhost', '10.226.0.3'];
     }
+
+    // Add path alias resolution
+    if (config.resolve) {
+      config.resolve.alias = {
+        ...config.resolve.alias,
+        '@': path.resolve(__dirname, '../src'),
+      };
+    }
+
     return config;
   },
 };

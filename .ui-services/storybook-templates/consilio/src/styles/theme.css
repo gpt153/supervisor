@@ -1,0 +1,162 @@
+/* ============================================================================
+   Theme Variables System
+   Centralized CSS variables for filing tab design and theming
+   ============================================================================ */
+
+:root {
+  /* ========================================
+     Filing Tab Color Scheme (Light Mode)
+     ======================================== */
+
+  /* Main navigation background */
+  --case-nav-background: #f9fafb;
+
+  /* Tab states - active/inactive */
+  --case-tab-active: #f9fafb;
+  --case-tab-inactive: #e5e7eb;
+  --case-tab-hover: #ebedef;
+
+  /* Page background (content area) */
+  --page-background: #f9fafb;
+
+  /* Tab borders */
+  --case-tab-border-active: #d1d5db;
+  --case-tab-border-inactive: #d1d5db;
+
+  /* Tab text colors */
+  --case-tab-text-active: #111827;
+  --case-tab-text-inactive: #374151;
+
+  /* ========================================
+     Semantic Surface Colors
+     ======================================== */
+
+  --surface-primary: #ffffff;
+  --surface-secondary: #e5e7eb;
+  --surface-tertiary: #f9fafb;
+
+  /* ========================================
+     Badge Colors
+     ======================================== */
+
+  /* Blue badge - emails */
+  --badge-blue-bg: #dbeafe;
+  --badge-blue-text: #1e40af;
+
+  /* Red badge - urgent */
+  --badge-red-bg: #fee2e2;
+  --badge-red-text: #991b1b;
+
+  /* Yellow/Orange badge - warnings */
+  --badge-yellow-bg: #fef3c7;
+  --badge-yellow-text: #92400e;
+
+  /* Purple badge - AI pending */
+  --badge-purple-bg: #e9d5ff;
+  --badge-purple-text: #581c87;
+
+  /* ========================================
+     Shadow and Depth
+     ======================================== */
+
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-base: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+
+  /* ========================================
+     Animations & Transitions
+     ======================================== */
+
+  --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 200ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ============================================================================
+   Dark Mode Theme (Optional - Future Enhancement)
+   ============================================================================ */
+
+:root[data-theme="dark"],
+.dark {
+  /* Filing Tab Color Scheme (Dark Mode) */
+  --case-nav-background: #1f2937;
+
+  /* Tab states - active/inactive (dark) */
+  --case-tab-active: #111827;
+  --case-tab-inactive: #374151;
+  --case-tab-hover: #4b5563;
+
+  /* Page background (dark mode) */
+  --page-background: #0f172a;
+
+  /* Tab borders (dark) */
+  --case-tab-border-active: #4b5563;
+  --case-tab-border-inactive: #374151;
+
+  /* Tab text colors (dark) */
+  --case-tab-text-active: #f3f4f6;
+  --case-tab-text-inactive: #d1d5db;
+
+  /* Semantic surfaces (dark) */
+  --surface-primary: #111827;
+  --surface-secondary: #374151;
+  --surface-tertiary: #1f2937;
+
+  /* Badge colors (dark mode) */
+  --badge-blue-bg: #1e3a8a;
+  --badge-blue-text: #93c5fd;
+
+  --badge-red-bg: #7f1d1d;
+  --badge-red-text: #fca5a5;
+
+  --badge-yellow-bg: #713f12;
+  --badge-yellow-text: #fcd34d;
+
+  --badge-purple-bg: #4c1d95;
+  --badge-purple-text: #e9d5ff;
+}
+
+/* ============================================================================
+   Global Utility Classes (Optional)
+   ============================================================================ */
+
+/* Filing tab container base styles */
+.filing-tab-container {
+  background-color: var(--case-nav-background);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Filing tab button base styles - VERTICAL tabs on left sidebar */
+.filing-tab {
+  background-color: var(--case-tab-inactive);
+  color: var(--case-tab-text-inactive);
+  border-color: var(--case-tab-border-inactive);
+  transition: all var(--transition-base);
+
+  /* Vertical filing tab: rounded left, flat right (connects to page) */
+  border-radius: 0.5rem 0 0 0.5rem;
+
+  /* No right border - creates the "connection" to the page */
+  border-right: none;
+}
+
+.filing-tab:hover:not(.filing-tab--active) {
+  background-color: var(--case-tab-hover);
+}
+
+/* Active filing tab state - extends slightly to create connection effect */
+.filing-tab--active {
+  background-color: var(--case-tab-active);
+  color: var(--case-tab-text-active);
+  border-color: var(--case-tab-border-active);
+  z-index: 10;
+
+  /* Active tab extends right to create visual "connection" to page content */
+  margin-right: -1px;
+  padding-right: calc(1rem + 1px);
+}
+
+/* Page content background */
+.page-content {
+  background-color: var(--page-background);
+}
