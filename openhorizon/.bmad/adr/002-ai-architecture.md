@@ -8,11 +8,12 @@
 
 ## Context
 
-OpenHorizon's core value proposition is AI-powered generation of Erasmus+ project content. The system needs to:
+OpenHorizon's core value proposition is AI-powered generation of Erasmus+ project content. The pipeline system needs to:
 - Generate creative project ideas (brainstorming seeds)
 - Conduct conversational elaboration (multi-turn dialogue to refine ideas)
 - Generate structured project documents (objectives, participant profiles, budgets)
-- Generate multi-day educational programmes with learning objectives
+- Generate timeline and phase information
+- Analyze requirements (visas, permits, insurance)
 - Search for vendors (Food, Accommodation, Travel agents)
 
 ### Current Situation
@@ -41,11 +42,11 @@ No AI integration exists. Need to choose LLM provider, integration framework, an
 - **Prompt Management:** Inline prompts with template variables (no external prompt storage initially)
 
 ### Implementation Summary
-- LangChain chains for multi-step generation (seed elaboration, project generation)
-- Specialized agents for vendor searches (FoodAgent, AccommodationAgent, TravelAgent)
-- Anthropic Claude as primary for quality and cost balance
-- OpenAI as fallback for legacy features or if Anthropic unavailable
-- Inngest background jobs for long-running AI operations (prevents timeouts)
+- Direct AI API calls for generation tasks (seed elaboration, project generation)
+- Specialized logic for vendor searches (Food, Accommodation, Travel)
+- Anthropic Claude as primary LLM for quality and cost balance
+- OpenAI GPT-4o as alternative for specific use cases
+- Asynchronous processing for long-running AI operations
 
 ## Rationale
 
@@ -72,21 +73,21 @@ No AI integration exists. Need to choose LLM provider, integration framework, an
 **Mitigation:**
 - Implement retry logic with exponential backoff for transient failures
 - Add usage monitoring and alerts if costs approach limits
-- Use Inngest background jobs to prevent HTTP timeouts
+- Use asynchronous processing to prevent HTTP timeouts
 - Cache common AI responses to reduce redundant API calls
 
 ### Why This Wins
 **Claude Sonnet 4.5** has been empirically validated to produce better Erasmus+-appropriate content than GPT-4. Its ability to follow complex instructions and maintain coherence over long conversations makes it ideal for conversational seed elaboration. The cost is manageable for expected usage volumes.
 
-**LangChain** provides essential abstractions (chains, agents, memory) that would take weeks to build from scratch. The TypeScript SDK's type safety catches prompt template errors at compile time.
+**Direct API integration** provides simplicity and control while maintaining flexibility. No need for heavy framework abstractions when straightforward API calls suffice for the project's needs.
 
 ## Consequences
 
 ### Positive Consequences
 - **User Experience:** High-quality AI-generated content reduces manual editing time by ~60%
-- **Developer Velocity:** LangChain abstractions enable rapid iteration on AI features
-- **Reliability:** Background jobs eliminate timeout issues on long-running generations
-- **Maintainability:** Specialized agents provide clear separation of concerns
+- **Developer Velocity:** Direct API calls enable rapid iteration on AI features
+- **Reliability:** Asynchronous processing eliminates timeout issues on long-running generations
+- **Maintainability:** Clear separation of concerns in generation logic
 
 ### Negative Consequences
 - **Technical Debt:** Tight coupling to Anthropic API makes migration costly if pricing changes
@@ -127,12 +128,12 @@ No AI integration exists. Need to choose LLM provider, integration framework, an
 4. [x] Test Claude Sonnet 4.5 with sample Erasmus+ content
 
 ### Phase 2: Execution ✅ (Completed 2025-10 to 2025-12)
-1. [x] Implement seed brainstorming chain
-2. [x] Implement conversational elaboration agent
-3. [x] Implement project generation chain
-4. [x] Implement programme builder chain
-5. [x] Implement vendor search agents (Food, Accommodation, Travel)
-6. [x] Integrate with Inngest for background jobs
+1. [x] Implement seed brainstorming generation
+2. [x] Implement conversational elaboration flow
+3. [x] Implement project generation logic
+4. [x] Implement timeline and phase generation
+5. [x] Implement vendor search logic (Food, Accommodation, Travel)
+6. [x] Integrate asynchronous processing for long-running operations
 
 ### Phase 3: Validation 🔄 (In Progress 2026-01)
 1. [x] Validate generation quality with real Erasmus+ projects
@@ -186,23 +187,23 @@ If Claude Sonnet proves inadequate or too expensive:
 
 ✅ **What worked well:**
 - Claude Sonnet 4.5 produces excellent educational content (learning objectives, activity descriptions)
-- LangChain chains simplify complex multi-step generations
-- Specialized agents (Food, Accommodation) provide focused, high-quality results
-- Background jobs successfully prevent HTTP timeouts
+- Direct API integration provides simplicity and control
+- Specialized generation logic provides focused, high-quality results
+- Asynchronous processing successfully prevents HTTP timeouts
 
 ⚠️ **What didn't work:**
 - Initial prompts were too verbose, reduced quality (learned to be concise)
-- Vendor search agents sometimes timeout even in background jobs (need caching - Epic 001)
+- Some operations can be slow for complex generations (acceptable trade-off)
 - Non-determinism makes some bugs hard to reproduce (need better logging)
 
 🔧 **What we'd do differently:**
 - Implement prompt versioning from day 1 (track prompt changes for quality regression)
 - Add A/B testing framework for prompt optimization
-- Implement caching earlier (would have prevented timeout issues)
+- Consider response caching for common queries
 
-### Current Issues
-- **Food/Accommodation Agent Timeouts:** Addressed in Epic 001 (convert to background jobs with caching)
-- **Cost Monitoring:** Need dashboard to track API usage by feature
+### Current Focus
+- **Performance Optimization:** Ongoing improvements to generation speed
+- **Cost Monitoring:** Track API usage and optimize prompt efficiency
 
 ---
 

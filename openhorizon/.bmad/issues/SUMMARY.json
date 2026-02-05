@@ -1,0 +1,51 @@
+{
+  "totalIssues": 36,
+  "closedIssues": 36,
+  "epic001": {
+    "issues": [
+      {
+        "number": 178,
+        "title": "User Documentation - Seed Elaboration Walkthrough",
+        "state": "CLOSED",
+        "prs": []
+      },
+      {
+        "number": 179,
+        "title": "API Documentation - Seed Elaboration Endpoints",
+        "state": "CLOSED",
+        "prs": []
+      },
+      {
+        "number": 172,
+        "title": "Integration Testing - Seed Elaboration Flow",
+        "state": "CLOSED",
+        "prs": [
+          "1"
+        ]
+      },
+      {
+        "number": 173,
+        "title": "Integration Testing - Generator Modules",
+        "state": "CLOSED",
+        "prs": [
+          "2"
+        ]
+      },
+      {
+        "number": 177,
+        "title": "End-to-End Testing - Various Project Scenarios",
+        "state": "CLOSED",
+        "prs": []
+      }
+    ],
+    "complete": true
+  },
+  "categories": {
+    "foundation": 1,
+    "agents": 12,
+    "infrastructure": 3,
+    "bugs": 2,
+    "other": 13
+  },
+  "extractionDate": "2026-01-19T10:39:43.079Z"
+}

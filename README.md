@@ -4,6 +4,27 @@
 
 ---
 
+## ⚠️ MIGRATION NOTICE
+
+**Status:** Transitioning to new SV supervisor system at `/home/samuel/sv/`
+
+### Migrated Projects
+- **consilio** → `/home/samuel/sv/consilio-s/` (Archived: 2026-01-19)
+  - Planning: `/home/samuel/archive/consilio-supervisor-20260119/`
+  - Implementation: `/home/samuel/archive/consilio-workspace-20260119/`
+  - New location: `/home/samuel/sv/consilio-s/`
+
+### Active Projects (Still Using Old System)
+- openhorizon
+- health-agent
+- odin
+- quiculum-monitor
+- scar
+
+**For migrated projects**, use the new SV structure. See `/home/samuel/sv/MIGRATION-GUIDE.md` for details.
+
+---
+
 ## 🎯 Quick Start
 
 ### Creating New Project (Easiest Way)

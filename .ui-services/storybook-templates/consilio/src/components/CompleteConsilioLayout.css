@@ -1,19 +1,42 @@
 /* ============================================================================
-   Complete Consilio Layout - Gap-Free, Border-Free Design
+   Complete Consilio Layout - Exactly matches Consilio frontend
    ============================================================================ */
 
 :root {
-  /* Color Variables */
-  --consilio-active: #f9fafb;
-  --consilio-inactive: #e5e7eb;
-  --consilio-main-bg: #f9fafb;
-  --consilio-input-bg: #ffffff;
-  --consilio-border: #d1d5db;
-  --consilio-text-active: #111827;
-  --consilio-text-inactive: #374151;
+  /* Color Variables - from theme.css */
+  --case-tab-active: #f9fafb;
+  --case-tab-inactive: #e5e7eb;
+  --case-tab-hover: #ebedef;
+  --page-background: #f9fafb;
+  --case-tab-border-active: #d1d5db;
+  --case-tab-border-inactive: #d1d5db;
+  --case-tab-text-active: #111827;
+  --case-tab-text-inactive: #374151;
+  --surface-primary: #ffffff;
+  --surface-secondary: #e5e7eb;
+  --surface-tertiary: #f9fafb;
+
+  /* Badge Colors - from theme.css */
+  --badge-blue-bg: #dbeafe;
+  --badge-blue-text: #1e40af;
+  --badge-red-bg: #fee2e2;
+  --badge-red-text: #991b1b;
+  --badge-yellow-bg: #fef3c7;
+  --badge-yellow-text: #92400e;
+  --badge-purple-bg: #e9d5ff;
+  --badge-purple-text: #581c87;
+
+  /* Aliases for backward compatibility */
+  --consilio-active: var(--case-tab-active);
+  --consilio-inactive: var(--case-tab-inactive);
+  --consilio-main-bg: var(--page-background);
+  --consilio-input-bg: var(--surface-primary);
+  --consilio-border: var(--case-tab-border-inactive);
+  --consilio-text-active: var(--case-tab-text-active);
+  --consilio-text-inactive: var(--case-tab-text-inactive);
 
   /* Layout Variables */
-  --topbar-height: 64px;
+  --topbar-height: 56px;
   --sidebar-width: 240px;
   --sidebar-collapsed-width: 64px;
   --nav-tabs-height: 48px;
@@ -32,7 +55,7 @@
 }
 
 /* ============================================================================
-   Fixed Top Bar - CRITICAL: No gaps, perfect alignment
+   Fixed Top Bar - Matches TopBar.tsx exactly
    ============================================================================ */
 
 .consilio-layout__topbar {
@@ -41,44 +64,46 @@
   left: 0;
   right: 0;
   height: var(--topbar-height);
-  background-color: var(--consilio-inactive);
+  background-color: var(--case-tab-inactive);
   display: flex;
-  align-items: flex-end; /* CRITICAL: Align to bottom */
+  align-items: center;
   z-index: 100;
-  /* NO BORDER - seamless connection */
+  border-bottom: 1px solid var(--case-tab-border-inactive);
+  gap: 16px;
+  padding: 0 16px;
+  box-sizing: border-box;
 }
 
 .consilio-layout__topbar-left {
   display: none; /* Hidden on desktop - only show on mobile/tablet */
   align-items: center;
-  padding: 0 16px;
   height: 100%;
 }
 
 .menu-button {
   background: none;
   border: none;
-  font-size: 24px;
   cursor: pointer;
-  color: var(--consilio-text-inactive);
+  color: var(--case-tab-text-inactive);
   padding: 8px;
   transition: opacity 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .menu-button:hover {
   opacity: 0.7;
 }
 
-/* Case Tabs Container - Horizontally scrollable */
+/* Case Tabs Container - Matches TopBar.tsx exactly */
 .consilio-layout__case-tabs-container {
   flex: 1;
   overflow-x: auto;
   overflow-y: hidden;
-  height: 100%; /* Full height of topbar */
+  height: 100%;
   display: flex;
-  align-items: flex-end; /* CRITICAL: Align to bottom */
-  padding-left: calc(var(--sidebar-width) + 24px); /* CRITICAL: Align with main content (sidebar + content padding) */
-  /* NO BORDER - seamless connection */
+  align-items: center;
 }
 
 .consilio-layout__case-tabs-container::-webkit-scrollbar {
@@ -90,20 +115,19 @@
 }
 
 .consilio-layout__case-tabs-container::-webkit-scrollbar-thumb {
-  background: var(--consilio-border);
+  background: var(--case-tab-border-inactive);
   border-radius: 3px;
 }
 
 .consilio-layout__case-tabs {
   display: flex;
-  gap: 0; /* NO GAPS between tabs */
+  gap: 0;
   min-width: max-content;
-  height: auto; /* Let tabs define height */
-  padding-bottom: 0; /* NO GAP at bottom */
+  height: auto;
 }
 
 /* ============================================================================
-   Case Filing Tabs (Horizontal) - PERFECT alignment
+   Case Filing Tabs (Horizontal) - Matches CaseButton.tsx exactly
    ============================================================================ */
 
 .case-filing-tab {
@@ -115,13 +139,16 @@
   min-width: 180px;
   max-width: 260px;
   height: 56px;
-  background-color: var(--consilio-inactive);
-  color: var(--consilio-text-inactive);
-  border: 1px solid var(--consilio-border);
-  border-bottom: none; /* NO BOTTOM BORDER - connects to nav tabs */
+  background-color: var(--case-tab-inactive);
+  color: var(--case-tab-text-inactive);
+  border: 1px solid var(--case-tab-border-inactive);
+  border-left: 1px solid var(--case-tab-border-inactive);
+  border-right: 1px solid var(--case-tab-border-inactive);
+  border-top: 1px solid var(--case-tab-border-inactive);
+  border-bottom: none;
   border-radius: 8px 8px 0 0;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   white-space: nowrap;
 }
 
@@ -130,10 +157,11 @@
 }
 
 .case-filing-tab--active {
-  background-color: var(--consilio-active);
-  color: var(--consilio-text-active);
+  background-color: var(--case-tab-active);
+  color: var(--case-tab-text-active);
+  border-color: var(--case-tab-border-active);
   z-index: 10;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
 }
 
 .case-filing-tab__title {
@@ -160,20 +188,26 @@
   font-weight: 500;
 }
 
+.badge-indicator__icon {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+}
+
 /* ============================================================================
-   Fixed Left Sidebar - CRITICAL: No gap, connects seamlessly
+   Fixed Left Sidebar - Matches SideMenu.tsx exactly
    ============================================================================ */
 
 .consilio-layout__sidebar {
   position: fixed;
   left: 0;
-  top: var(--topbar-height); /* Start right below topbar - NO GAP */
+  top: var(--topbar-height);
   bottom: 0;
   width: var(--sidebar-width);
-  background-color: var(--consilio-inactive);
+  background-color: var(--case-tab-inactive);
   z-index: 90;
   transition: width 0.3s;
-  /* NO BORDER on right - seamless connection */
+  border-right: none;
 }
 
 .consilio-layout__sidebar--collapsed {
@@ -183,18 +217,19 @@
 .sidebar-nav {
   display: flex;
   flex-direction: column;
-  padding: 16px 0 0 0; /* Start at top of sidebar content */
+  padding: 16px 0 0 0;
   height: 100%;
+  gap: 4px;
 }
 
 .sidebar-nav__logout {
   margin-top: auto;
   padding: 16px 0;
-  border-top: 1px solid var(--consilio-border);
+  border-top: 1px solid var(--case-tab-border-inactive);
 }
 
 /* ============================================================================
-   Sidebar Tabs (Vertical) - PERFECT connection to main content
+   Sidebar Tabs (Vertical) - Matches SideMenu.tsx filing-tab styling
    ============================================================================ */
 
 .sidebar-tab {
@@ -202,32 +237,38 @@
   align-items: center;
   gap: 12px;
   padding: 12px 16px;
-  background-color: var(--consilio-inactive);
-  color: var(--consilio-text-inactive);
-  border: 1px solid var(--consilio-border);
-  border-right: none; /* NO RIGHT BORDER - connects to main */
-  border-radius: 8px 0 0 8px; /* Rounded left, flat right */
-  margin: 2px 0 2px 8px; /* Small margin on left only */
+  margin: 0 8px;
+  background-color: var(--case-tab-inactive);
+  color: var(--case-tab-text-inactive);
+  border: 2px solid var(--case-tab-border-inactive);
+  border-left: 2px solid var(--case-tab-border-inactive);
+  border-top: 2px solid var(--case-tab-border-inactive);
+  border-bottom: 2px solid var(--case-tab-border-inactive);
+  border-right: none;
+  border-radius: 8px 0 0 8px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
   text-align: left;
   white-space: nowrap;
+  font-weight: 500;
 }
 
 .sidebar-tab:hover {
-  background-color: var(--consilio-active);
+  background-color: var(--case-tab-hover);
 }
 
 .sidebar-tab--active {
-  background-color: var(--consilio-active);
-  color: var(--consilio-text-active);
+  background-color: var(--case-tab-active);
+  color: var(--case-tab-text-active);
+  border-color: var(--case-tab-border-active);
   z-index: 10;
-  margin-right: -1px; /* Extend to connect seamlessly */
+  margin-right: -1px;
   padding-right: calc(16px + 1px);
 }
 
 .sidebar-tab__icon {
-  font-size: 20px;
+  width: 20px;
+  height: 20px;
   flex-shrink: 0;
 }
 
@@ -240,6 +281,7 @@
 
 .consilio-layout__sidebar--collapsed .sidebar-tab {
   justify-content: center;
+  margin: 0 4px;
 }
 
 .consilio-layout__sidebar--collapsed .sidebar-tab__label {
@@ -247,22 +289,21 @@
 }
 
 /* ============================================================================
-   Fixed Navigation Tabs - CRITICAL: Right below topbar, no gaps
+   Fixed Navigation Tabs - Placeholder (not in actual Consilio)
    ============================================================================ */
 
 .consilio-layout__nav-tabs {
   position: fixed;
-  top: var(--topbar-height); /* Start right below topbar - NO GAP */
-  left: var(--sidebar-width); /* Start right after sidebar - NO GAP */
+  top: var(--topbar-height);
+  left: var(--sidebar-width);
   right: 0;
   height: var(--nav-tabs-height);
-  background-color: var(--consilio-inactive);
+  background-color: var(--case-tab-inactive);
   display: flex;
-  gap: 0; /* NO GAPS between tabs */
+  gap: 0;
   overflow-x: auto;
   z-index: 80;
-  /* NO TOP BORDER - seamless connection to topbar */
-  /* NO LEFT BORDER - seamless connection to sidebar */
+  border-top: 1px solid var(--case-tab-border-inactive);
 }
 
 .consilio-layout__nav-tabs::-webkit-scrollbar {
@@ -274,57 +315,55 @@
 }
 
 .consilio-layout__nav-tabs::-webkit-scrollbar-thumb {
-  background: var(--consilio-border);
+  background: var(--case-tab-border-inactive);
   border-radius: 3px;
 }
 
 /* ============================================================================
-   Navigation Tabs (Horizontal) - Perfect alignment
+   Navigation Tabs (Horizontal)
    ============================================================================ */
 
 .nav-tab {
   padding: 12px 24px;
-  background-color: var(--consilio-inactive);
-  color: var(--consilio-text-inactive);
-  border: none; /* NO BORDERS - seamless */
+  background-color: var(--case-tab-inactive);
+  color: var(--case-tab-text-inactive);
+  border: none;
   border-bottom: 2px solid transparent;
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
   white-space: nowrap;
-  transition: all 0.2s;
+  transition: all 200ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .nav-tab:hover {
-  background-color: var(--consilio-active);
+  background-color: var(--case-tab-hover);
 }
 
 .nav-tab--active {
-  background-color: var(--consilio-active);
-  color: var(--consilio-text-active);
-  border-bottom-color: var(--consilio-text-active);
+  background-color: var(--case-tab-active);
+  color: var(--case-tab-text-active);
+  border-bottom-color: var(--case-tab-text-active);
 }
 
 /* ============================================================================
-   Main Content Area - PERFECT positioning, no gaps/borders
+   Main Content Area
    ============================================================================ */
 
 .consilio-layout__content {
   position: fixed;
-  top: calc(var(--topbar-height) + var(--nav-tabs-height)); /* Below topbar + nav tabs - NO GAP */
-  left: var(--sidebar-width); /* After sidebar - NO GAP */
+  top: calc(var(--topbar-height) + var(--nav-tabs-height));
+  left: var(--sidebar-width);
   right: 0;
   bottom: 0;
-  background-color: var(--consilio-main-bg);
+  background-color: var(--page-background);
   overflow-y: auto;
   overflow-x: hidden;
-  /* NO BORDERS - seamless connection */
 }
 
 .consilio-layout__content-inner {
   padding: 24px;
-  max-width: 1400px;
-  /* Left-aligned, not centered */
+  max-width: 100%;
 }
 
 /* ============================================================================
@@ -334,12 +373,12 @@
 .content-heading {
   font-size: 28px;
   font-weight: 700;
-  color: var(--consilio-text-active);
+  color: var(--case-tab-text-active);
   margin-bottom: 24px;
 }
 
 .content-section {
-  background-color: var(--consilio-active);
+  background-color: var(--case-tab-active);
   border-radius: 8px;
   padding: 24px;
   margin-bottom: 24px;
@@ -348,21 +387,21 @@
 .content-section h3 {
   font-size: 20px;
   font-weight: 600;
-  color: var(--consilio-text-active);
+  color: var(--case-tab-text-active);
   margin-bottom: 16px;
 }
 
 .content-section h4 {
   font-size: 16px;
   font-weight: 600;
-  color: var(--consilio-text-active);
+  color: var(--case-tab-text-active);
   margin-top: 20px;
   margin-bottom: 12px;
 }
 
 .content-section p {
   font-size: 14px;
-  color: var(--consilio-text-inactive);
+  color: var(--case-tab-text-inactive);
   line-height: 1.6;
   margin-bottom: 12px;
 }
@@ -375,7 +414,7 @@
 
 .content-section li {
   font-size: 14px;
-  color: var(--consilio-text-inactive);
+  color: var(--case-tab-text-inactive);
   line-height: 1.6;
   margin-bottom: 8px;
 }
@@ -389,17 +428,17 @@
   width: 100%;
   max-width: 400px;
   padding: 12px 16px;
-  background-color: var(--consilio-input-bg);
-  border: 1px solid var(--consilio-border);
+  background-color: var(--surface-primary);
+  border: 1px solid var(--case-tab-border-inactive);
   border-radius: 6px;
   font-size: 14px;
-  color: var(--consilio-text-active);
+  color: var(--case-tab-text-active);
   margin: 16px 0;
 }
 
 .sample-input:focus {
   outline: none;
-  border-color: var(--consilio-text-active);
+  border-color: var(--case-tab-text-active);
   box-shadow: 0 0 0 3px rgba(17, 24, 39, 0.1);
 }
 
@@ -420,10 +459,6 @@
     left: var(--sidebar-collapsed-width);
   }
 
-  .consilio-layout__case-tabs-container {
-    padding-left: calc(var(--sidebar-collapsed-width) + 24px); /* Align with collapsed sidebar + content padding */
-  }
-
   .sidebar-tab__label {
     display: none;
   }
@@ -435,11 +470,7 @@
   }
 
   .consilio-layout__topbar-left {
-    display: flex; /* Show menu button on mobile */
-  }
-
-  .consilio-layout__case-tabs-container {
-    padding-left: 0; /* No padding on mobile - menu button provides spacing */
+    display: flex;
   }
 
   .consilio-layout__nav-tabs {

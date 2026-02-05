@@ -1,0 +1,55 @@
+# Cloudflare Tunnel Configuration for Supervisor Service MCP SSE
+#
+# This file shows the required configuration for /etc/cloudflared/config.yml
+# to expose the SSE MCP server at supermcp.153.se
+#
+# IMPORTANT: The existing /etc/cloudflared/config.yml has supermcp.153.se pointing
+# to port 8084, but our SSE server runs on port 8082.
+#
+# UPDATE REQUIRED:
+# Change the existing supermcp.153.se entry from:
+#   - hostname: supermcp.153.se
+#     service: http://localhost:8084
+#
+# To:
+#   - hostname: supermcp.153.se
+#     service: http://localhost:8082
+#     originRequest:
+#       noTLSVerify: true
+#       disableChunkedEncoding: true
+#       http2Origin: false
+#
+# The originRequest settings are important for SSE to work properly.
+
+# Full ingress section example:
+ingress:
+  # Supervisor Services - Multi-project MCP
+  - hostname: super.153.se
+    service: http://localhost:8081
+
+  # SSE MCP Server (UPDATE THIS LINE)
+  - hostname: supermcp.153.se
+    service: http://localhost:8082
+    originRequest:
+      noTLSVerify: true
+      disableChunkedEncoding: true
+      http2Origin: false
+
+  # UI Workflow Services
+  - hostname: penpot.153.se
+    service: http://localhost:9001
+  - hostname: storybook.153.se
+    service: http://localhost:6006
+  - hostname: expo.153.se
+    service: http://localhost:6007
+
+  # ... (rest of existing services)
+
+  # Catch-all
+  - service: http_status:404
+
+# After updating /etc/cloudflared/config.yml:
+# sudo systemctl restart cloudflared
+#
+# Verify:
+# curl https://supermcp.153.se/health

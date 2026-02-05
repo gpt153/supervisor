@@ -1,4 +1,18 @@
 import React, { useState, useRef, useEffect } from 'react';
+import {
+  Home,
+  Folder,
+  Calendar,
+  FileText,
+  CheckSquare,
+  Settings,
+  Sparkles,
+  Menu,
+  Mail,
+  AlertTriangle,
+  Zap,
+  LogOut,
+} from 'lucide-react';
 import './CompleteConsilioLayout.css';
 
 // Mock data types
@@ -21,19 +35,19 @@ interface BadgeIndicatorProps {
 
 const badgeConfig = {
   email: {
-    icon: '📧',
+    icon: Mail,
     bgColor: '#dbeafe',
     textColor: '#1e40af',
     label: 'unread emails',
   },
   urgent: {
-    icon: '⚠️',
+    icon: AlertTriangle,
     bgColor: '#fee2e2',
     textColor: '#991b1b',
     label: 'urgent items',
   },
   'ai-pending': {
-    icon: '🤖',
+    icon: Zap,
     bgColor: '#e9d5ff',
     textColor: '#581c87',
     label: 'AI pending approvals',
@@ -45,6 +59,7 @@ const BadgeIndicator: React.FC<BadgeIndicatorProps> = ({ type, count }) => {
   if (count === 0) return null;
 
   const config = badgeConfig[type];
+  const IconComponent = config.icon;
   const displayCount = count > 99 ? '99+' : count.toString();
 
   return (
@@ -56,7 +71,7 @@ const BadgeIndicator: React.FC<BadgeIndicatorProps> = ({ type, count }) => {
       }}
       aria-label={`${count} ${config.label}`}
     >
-      <span>{config.icon}</span>
+      <IconComponent className="badge-indicator__icon" />
       <span>{displayCount}</span>
     </div>
   );
@@ -100,15 +115,15 @@ const navigationTabs = [
   { id: 'matchning', label: 'Matchning' },
 ];
 
-// Sidebar navigation items
+// Sidebar navigation items - matches SideMenu.tsx exactly
 const sidebarItems = [
-  { name: 'Dashboard', path: '/dashboard', icon: '🏠' },
-  { name: 'Ärenden', path: '/cases', icon: '📁' },
-  { name: 'AI Approvals', path: '/approvals', icon: '✨' },
-  { name: 'Kalender', path: '/calendar', icon: '📅' },
-  { name: 'Dokument', path: '/documents', icon: '📄' },
-  { name: 'Uppgifter', path: '/tasks', icon: '☑️' },
-  { name: 'Inställningar', path: '/settings', icon: '⚙️' },
+  { name: 'Dashboard', path: '/dashboard', icon: Home },
+  { name: 'Ärenden', path: '/cases', icon: Folder },
+  { name: 'AI Approvals', path: '/approvals', icon: Sparkles },
+  { name: 'Kalender', path: '/calendar', icon: Calendar },
+  { name: 'Dokument', path: '/documents', icon: FileText },
+  { name: 'Uppgifter', path: '/tasks', icon: CheckSquare },
+  { name: 'Inställningar', path: '/settings', icon: Settings },
 ];
 
 export interface CompleteConsilioLayoutProps {
@@ -158,8 +173,8 @@ export const CompleteConsilioLayout: React.FC<CompleteConsilioLayoutProps> = ({
       {/* Fixed Top Bar with Case Filing Tabs */}
       <header className="consilio-layout__topbar">
         <div className="consilio-layout__topbar-left">
-          <button className="menu-button" aria-label="Menu">
-            ☰
+          <button className="menu-button" aria-label="Öppna meny">
+            <Menu className="h-5 w-5" />
           </button>
         </div>
 
@@ -189,31 +204,32 @@ export const CompleteConsilioLayout: React.FC<CompleteConsilioLayoutProps> = ({
         )}
       </header>
 
-      {/* Fixed Left Sidebar */}
+      {/* Fixed Left Sidebar - Matches SideMenu.tsx exactly */}
       <aside className={`consilio-layout__sidebar ${sidebarCollapsed ? 'consilio-layout__sidebar--collapsed' : ''}`}>
         <nav className="sidebar-nav">
           {sidebarItems.map((item) => {
             const isActive = item.path === '/cases';
+            const IconComponent = item.icon;
             return (
               <button
                 key={item.path}
                 className={`sidebar-tab ${isActive ? 'sidebar-tab--active' : ''}`}
                 title={item.name}
               >
-                <span className="sidebar-tab__icon">{item.icon}</span>
+                <IconComponent className="sidebar-tab__icon" />
                 {!sidebarCollapsed && <span className="sidebar-tab__label">{item.name}</span>}
               </button>
             );
           })}
 
-          {/* Logout Button */}
+          {/* Logout Button - Matches SideMenu.tsx exactly */}
           <div className="sidebar-nav__logout">
             <button
               onClick={handleLogout}
               className="sidebar-tab"
               title="Logga ut"
             >
-              <span className="sidebar-tab__icon">🚪</span>
+              <LogOut className="sidebar-tab__icon" />
               {!sidebarCollapsed && <span className="sidebar-tab__label">Logga ut</span>}
             </button>
           </div>
